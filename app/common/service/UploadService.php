@@ -12,7 +12,7 @@ namespace app\common\service;
 
 
 use app\common\utils\Result;
-use app\common\utils\upload\UploadBase;
+use app\common\utils\UploadUtil;
 
 class UploadService
 {
@@ -23,9 +23,7 @@ class UploadService
      */
     public function image($files): array
     {
-        $obj      = UploadBase::getUploadObj();
-        $imageArr = $obj->upload($files, true);
-        return Result::serviceSucc($imageArr);
+        return UploadUtil::upload($files, true);
     }
 
     /**
@@ -35,9 +33,7 @@ class UploadService
      */
     public function file($files): array
     {
-        $obj     = UploadBase::getUploadObj();
-        $fileArr = $obj->upload($files, false);
-        return Result::serviceSucc($fileArr);
+        return UploadUtil::upload($files, false);
     }
 
 }

@@ -16,7 +16,7 @@ use Exception;
 use LogicException;
 use think\facade\Config;
 
-abstract class UploadBase
+class UploadBase
 {
     //上传文件配置项
     protected $config;
@@ -24,19 +24,6 @@ abstract class UploadBase
     public function __construct()
     {
         $this->setConfig();
-    }
-
-    public static function getUploadObj()
-    {
-        try {
-            $uploadConfig = Config::get('upload');
-            $type         = $uploadConfig['type'];
-            $className    = $uploadConfig['stores'][$type]['class_name'];
-            return new $className();
-
-        } catch (Error $e) {
-            throw new LogicException($e->getMessage());
-        }
     }
 
     /**

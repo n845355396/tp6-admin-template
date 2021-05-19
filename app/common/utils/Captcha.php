@@ -29,7 +29,7 @@ class Captcha
     protected $codeSet = '234567890abcdefhijkmnpqrstuvwxyzABCDEFGHJKLMNPQRTUVWXY';
     //protected $codeSet = '234567890';
     // 验证码过期时间（s）
-    protected $expire = 1800;
+    protected $expire = 60;
     // 使用中文验证码
     protected $useZh = false;
     // 中文验证码字符串

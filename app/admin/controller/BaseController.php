@@ -17,9 +17,28 @@ use think\exception\ValidateException;
 use think\facade\View;
 use think\Validate;
 
+//lpc 加上这个可屏蔽php的字段不存在警告提醒，然而我没有采用
+//改用在需要字段前加@来抑制变量，同时保留了PHP提醒机制
+//error_reporting(E_ALL & ~E_NOTICE);
 class BaseController
 {
     protected $limit = 10;
+
+    /**
+     * @Author: lpc
+     * @DateTime: 2021/5/18 15:03
+     * @Description: 处理分页页码数据
+     * @param  $pageNo
+     * @param  $pageSize
+     * @return array
+     */
+    public function getPageData($pageNo, $pageSize): array
+    {
+        $pageSize = !empty($pageSize) ? $pageSize : $this->limit;
+        $pageNo   = !empty($pageNo) ? $pageNo : 1;
+//        $offset   = ($pageNo - 1) * $pageSize;
+        return ['page' => $pageNo, 'list_rows' => $pageSize];
+    }
 
     /**
      * Request实例

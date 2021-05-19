@@ -37,7 +37,7 @@ class LoginController extends BaseController
      */
     public function login()
     {
-        $data = $this->request->requestParams;
+        $data = $this->request->dataParams;
         $res  = Kernel::single(AdminService::class)->login($data);
         return Result::disposeServiceRes($res);
     }

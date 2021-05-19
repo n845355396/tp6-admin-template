@@ -2,25 +2,85 @@
 
 use think\facade\Route;
 
-Route::rule('/', 'Error/index');
+Route::rule('/', 'Error/index');//默认域名通道
+Route::miss('Error/noFound');//所有错误url通道
+
+//@Author: lpc @Description: is_permission=true表示会经过管理员菜单权限验证，反之不填/false表示不验证 @DateTime: 2021/5/18 12:20
 
 //管理员登录组
 Route::group('login', function () {
-    Route::post('/login', 'Login/Login');
-    Route::get('/get_code_img', 'Login/getCodeImg');
-});
+    Route::post('/login', 'Login/Login')
+        ->name("管理员登录")->append(['is_permission' => false]);
 
-//管理员
+    Route::get('/get_code_img', 'Login/getCodeImg')
+        ->name("获取验证码")->append(['is_permission' => false]);
+
+})->name("登录");
+
+//管理员模块
 Route::group('admin', function () {
-    Route::post('/create', 'Admin/create');
-    Route::get('/list', 'Admin/list');
-});
+    Route::post('/create', 'Admin/create')
+        ->name("管理员创建")->append(['is_permission' => true]);
 
-//上传文件
+    Route::post('/edit', 'Admin/edit')
+        ->name("管理员编辑")->append(['is_permission' => true]);
+
+    Route::post('/delete', 'Admin/delete')
+        ->name("管理员删除")->append(['is_permission' => true]);
+
+    Route::post('/disable', 'Admin/disable')
+        ->name("管理员禁用")->append(['is_permission' => true]);
+
+    Route::post('/up_password', 'Admin/upPassword')
+        ->name("管理员密码修改")->append(['is_permission' => true]);
+
+    Route::get('/info', 'Admin/info')
+        ->name("管理员信息")->append(['is_permission' => true]);
+
+    Route::get('/list', 'Admin/list')
+        ->name("管理员列表")->append(['is_permission' => true]);
+
+})->name("管理员管理");
+
+//角色管理
+Route::group('role', function () {
+    Route::post('/create', 'Role/create')
+        ->name("角色创建")->append(['is_permission' => true]);
+
+    Route::post('/edit', 'Role/edit')
+        ->name("角色编辑")->append(['is_permission' => true]);
+
+    Route::get('/info', 'Role/info')
+        ->name("角色信息")->append(['is_permission' => true]);
+
+    Route::get('/list', 'Role/list')
+        ->name("角色列表")->append(['is_permission' => true]);
+
+    Route::post('/delete', 'Role/delete')
+        ->name("角色删除")->append(['is_permission' => true]);
+
+    Route::post('/disable', 'Role/disable')
+        ->name("角色禁用")->append(['is_permission' => true]);
+
+    Route::get('/permission_list', 'Role/permissionList')
+        ->name("权限列表")->append(['is_permission' => false]);
+})->name("角色管理");
+
+//文件管理
 Route::group('upload', function () {
-    Route::post('/image', 'Upload/image');
-    Route::post('/file', 'Upload/file');
-});
+    Route::post('/image', 'Upload/image')
+        ->name("上传图片")->append(['is_permission' => true]);
+
+    Route::post('/file', 'Upload/file')
+        ->name("上传文件")->append(['is_permission' => true]);
+
+})->name("文件管理");
 
 
-Route::miss('Error/noFound');
+//菜单管理
+Route::group('menu', function () {
+    Route::get('/list', 'Menu/list')
+        ->name("菜单列表")->append(['is_permission' => false]);
+
+})->name("菜单管理");
+

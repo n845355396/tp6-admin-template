@@ -14,6 +14,7 @@ namespace app\admin\controller;
 use app\common\service\Kernel;
 use app\common\service\UploadService;
 use app\common\utils\Result;
+use think\facade\Route;
 use think\response\Json;
 
 class UploadController extends AuthController
