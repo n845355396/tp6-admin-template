@@ -41,6 +41,12 @@ composer update topthink/framework
 https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
 ~~~
 
+## 配置项
+
+~~~
+很多配置项写在了.env文件里，参考文件.example.env部署
+~~~
+
 ## 开发中~
 
 ~~~
