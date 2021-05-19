@@ -27,7 +27,8 @@
     "firebase/php-jwt": "^5.2",
     "topthink/think-captcha": "^3.0",
     "qiniu/php-sdk": "^7.3",
-    "ext-gd": "*"
+    "ext-gd": "*",
+    "ext-json": "*"
   },
   "require-dev": {
     "symfony/var-dumper": "^4.2",

@@ -17,7 +17,7 @@ return [
 
     // 应用映射（自动多应用模式有效）
 //    'think' => 'admin', // 把admin应用映射为think
-    'app_map'          => ['admin' => 'admin'],
+    'app_map'          => ['admin' => 'admin', 'api' => 'portal'],
     // 域名绑定（自动多应用模式有效）
     'domain_bind'      => [],
     // 禁止URL访问的应用列表（自动多应用模式有效）

@@ -16,3 +16,18 @@ function getDomainUrl(string $path = '')
 
     return str_replace('//', '/', $domain . '/' . $path);
 }
+
+/**
+ * @Author: lpc
+ * @DateTime: 2021/5/19 18:02
+ * @Description: 对象转数组
+ * @param $object
+ * @return mixed
+ */
+function objectToArray($object)
+{
+    if (is_array($object)) {
+        return $object;
+    }
+    return json_decode(json_encode($object), true);
+}

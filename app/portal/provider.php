@@ -1,0 +1,9 @@
+<?php
+
+use app\portal\exception\PortalEceptionHandle;
+
+// 容器Provider定义文件
+return [
+
+    'think\exception\Handle' => PortalEceptionHandle::class
+];
