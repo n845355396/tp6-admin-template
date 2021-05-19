@@ -20,11 +20,11 @@ return [
             'file_path'  => '/upload/file/',//保存文件根目录
         ],
         'qiniu' => [
-            'class_name' => QiniuUpload::class,
-            'qiniu_access_key'    => 'TqmzUSYXlv64puNV5JENIQchWrAEDOs-2IB8_z04',
-            'qiniu_access_secret' => 'd22f_7xJLGGoHjMwRe-ItC2aNkH70171B9Zu2X3u',
-            'qiniu_bucket'        => 'luzhongsheng',
-            'qiniu_domain'        => 'https://img.luzhongsheng.com'
+            'class_name'          => QiniuUpload::class,
+            'qiniu_access_key'    => env('qiniu.qiniu_access_key', ''),
+            'qiniu_access_secret' => env('qiniu.qiniu_access_secret', ''),
+            'qiniu_bucket'        => env('qiniu.qiniu_bucket', ''),
+            'qiniu_domain'        => env('qiniu.qiniu_domain', ''),
         ]
     ]
 ];
