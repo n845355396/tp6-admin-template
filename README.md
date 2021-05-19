@@ -29,28 +29,23 @@ composer create-project topthink/think tp 6.0.*
 ~~~
 
 如果需要更新框架使用
+
 ~~~
 composer update topthink/framework
 ~~~
 
-## 文档
+## 接口文档
 
-[完全开发手册](https://www.kancloud.cn/manual/thinkphp6_0/content)
+~~~
+基于TP6的一款前后端分离管理系统
+https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
+~~~
 
-## 参与开发
+## 开发中~
 
-请参阅 [ThinkPHP 核心框架包](https://github.com/top-think/framework)。
-
-## 版权信息
-
-ThinkPHP遵循Apache2开源协议发布，并提供免费使用。
-
-本项目包含的第三方源码和二进制文件之版权信息另行标注。
-
-版权所有Copyright © 2006-2020 by ThinkPHP (http://thinkphp.cn)
-
-All rights reserved。
-
-ThinkPHP® 商标和著作权所有者为上海顶想信息科技有限公司。
-
-更多细节参阅 [LICENSE.txt](LICENSE.txt)
+~~~
+目前开发完成：
+    平台端权限、登录
+    第三方支付扩展；已配置【app端支付宝】
+    文件上传扩展；已配置【本地、七牛云】
+~~~
