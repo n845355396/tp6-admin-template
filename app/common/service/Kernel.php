@@ -11,7 +11,7 @@
 namespace app\common\service;
 
 
-class Kernel
+class Kernel extends BaseService
 {
     private static $__singleton_instance = [];
 

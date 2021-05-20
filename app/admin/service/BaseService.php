@@ -10,8 +10,12 @@
 
 namespace app\admin\service;
 
+use app\common\service\BaseService as CommonBaseService;
 
-class BaseService
+class BaseService extends CommonBaseService
 {
-
+    public function __construct()
+    {
+        parent::__construct();
+    }
 }

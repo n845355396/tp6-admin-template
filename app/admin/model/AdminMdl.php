@@ -18,7 +18,6 @@ use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;
 use think\facade\Db;
-use think\Model;
 use think\model\relation\HasOneThrough;
 
 class AdminMdl extends BaseModel

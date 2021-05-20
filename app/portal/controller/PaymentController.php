@@ -15,9 +15,10 @@ use app\common\service\Kernel;
 use app\common\utils\PayUtil;
 use app\common\utils\Result;
 use app\portal\service\PaymentService;
+use think\facade\Log;
 use think\response\Json;
 
-class PaymentController extends BaseController
+class PaymentController extends AuthController
 {
     /**
      * @Author: lpc

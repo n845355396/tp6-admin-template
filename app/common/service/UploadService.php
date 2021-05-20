@@ -14,7 +14,7 @@ namespace app\common\service;
 use app\common\utils\Result;
 use app\common\utils\UploadUtil;
 
-class UploadService
+class UploadService extends BaseService
 {
     /**
      * @Author: lpc

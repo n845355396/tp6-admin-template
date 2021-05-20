@@ -11,6 +11,7 @@
 namespace app\common\utils\payment;
 
 
+use app\common\utils\PayLog;
 use think\facade\Config;
 
 class PaymentBase
@@ -54,6 +55,23 @@ class PaymentBase
         $type         = $this->payName;
         $this->config = Config::get("pay.{$type}");
 
+    }
+
+    /**
+     * @Author: lpc
+     * @DateTime: 2021/5/20 11:21
+     * @Description: 日志记录
+     * @param string $payType 类型，看PayLog类的常量定义
+     * @param string $title 标题
+     * @param array $data 数据
+     */
+    public function log(string $payType, string $title, array $data)
+    {
+        PayLog::write($payType,
+            $this->payName,
+            $title,
+            $data
+        );
     }
 
 }

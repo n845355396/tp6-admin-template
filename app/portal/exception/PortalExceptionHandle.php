@@ -8,7 +8,7 @@ use think\exception\Handle;
 use think\Response;
 use Throwable;
 
-class PortalEceptionHandle extends Handle
+class PortalExceptionHandle extends Handle
 {
 
     public $httpCode = 500;

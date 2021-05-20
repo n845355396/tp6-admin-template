@@ -13,7 +13,7 @@ namespace app\admin\service;
 
 use app\admin\model\AdminMdl;
 use app\admin\model\RoleMdl;
-use app\admin\Validate\AdminValidate;
+use app\admin\validate\AdminValidate;
 use app\common\service\JwtService;
 use app\common\utils\Captcha;
 use app\common\utils\Result;
@@ -23,8 +23,6 @@ use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;
 use think\exception\ValidateException;
-use think\facade\Db;
-use think\Model;
 
 class AdminService extends BaseService
 {
@@ -35,6 +33,7 @@ class AdminService extends BaseService
 
     public function __construct()
     {
+        parent::__construct();
         $this->adminMdl = new AdminMdl();
     }
 

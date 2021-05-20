@@ -13,7 +13,7 @@ namespace app\admin\service;
 
 use app\admin\model\AdminRoleMdl;
 use app\admin\model\RoleMdl;
-use app\admin\Validate\RoleValidate;
+use app\admin\validate\RoleValidate;
 use app\common\utils\Result;
 use think\exception\ValidateException;
 use think\facade\Route;
@@ -27,6 +27,7 @@ class RoleService extends BaseService
 
     public function __construct()
     {
+        parent::__construct();
         $this->roleMdl = new RoleMdl();
     }
 

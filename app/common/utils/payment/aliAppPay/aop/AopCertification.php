@@ -288,7 +288,7 @@ function extractSignature($der = false)
  */
 function getSignatureAlgorithmOid($der = null)
 {
-    // Validate this is the der we need...
+    // validate this is the der we need...
     if (!is_string($der) or strlen($der) < 5) {
         return false;
     }
@@ -348,7 +348,7 @@ function getSignatureAlgorithmOid($der = null)
  */
 function getSignatureHash($der = null)
 {
-    // Validate this is the der we need...
+    // validate this is the der we need...
     if (!is_string($der) or strlen($der) < 5) {
         return false;
     }

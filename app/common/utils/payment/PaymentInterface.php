@@ -17,10 +17,10 @@ interface PaymentInterface
      * @Author: lpc
      * @DateTime: 2021/5/19 15:26
      * @Description: 第三方支付发起付款
-     * @param $payData
+     * @param array $payParams
      * @return mixed
      */
-    public function payment($payParams);
+    public function payment(array $payParams);
 
     /**
      * @Author: lpc
@@ -34,29 +34,29 @@ interface PaymentInterface
      * @Author: lpc
      * @DateTime: 2021/5/19 15:30
      * @Description: 第三方支付退款
-     * @param $refundParams
+     * @param array $refundParams
      * @return mixed
      */
-    public function refund($refundParams);
+    public function refund(array $refundParams, $optional = []);
 
 
     /**
      * @Author: lpc
      * @DateTime: 2021/5/19 15:33
      * @Description: 第三方转账到所属第三方账户
-     * @param $transferParams
+     * @param array $transferParams
      * @return mixed
      */
-    public function transfer($transferParams);
+    public function transfer(array $transferParams);
 
     /**
      * @Author: lpc
      * @DateTime: 2021/5/19 15:34
      * @Description: 第三方转账到个人用户银行卡
-     * @param $transferParams
+     * @param array $transferParams
      * @return mixed
      */
-    public function transferToBank($transferParams);
+    public function transferToBank(array $transferParams);
 }
 
 

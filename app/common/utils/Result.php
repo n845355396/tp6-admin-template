@@ -10,15 +10,21 @@ class Result
 {
     const OK = 200;//成功
     const ERROR = 201;//失败
+
+
     const TOKEN_ERROR = 401;//失败
     const NO_PERMISSION = 403;//权限不足
     const NO_FOUND = 404;//没发现
+
+
+    const SYSTEM_ERROR = 500;//系统逻辑错误
 
     /**
      * @Author: lpc
      * @DateTime: 2021/5/7 16:45
      * @Description: 处理service层返回的固定格式参数返回
      * @param $res
+     * @return Json
      */
     public static function disposeServiceRes($res): Json
     {
@@ -27,7 +33,7 @@ class Result
         if ($res['status']) {
             return self::succ($data, $msg);
         }
-        return self::error($msg, $data);
+        return self::error($msg, self::SYSTEM_ERROR, $data);
     }
 
     /**

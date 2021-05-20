@@ -12,16 +12,8 @@ namespace app\admin\model;
 
 
 use think\Model;
+use app\common\model\BaseModel as CommonBaseModel;
 
-class BaseModel extends Model
+class BaseModel extends CommonBaseModel
 {
-    public function getCreateTimeAttr($value)
-    {
-        return date('Y-m-d H:i:s', $value);
-    }
-
-    public function getUpdateTimeAttr($value)
-    {
-        return date('Y-m-d H:i:s', $value);
-    }
 }

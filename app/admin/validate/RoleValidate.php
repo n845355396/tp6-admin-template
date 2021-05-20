@@ -8,7 +8,7 @@
 
  */
 
-namespace app\admin\Validate;
+namespace app\admin\validate;
 
 
 use app\admin\model\AdminRoleMdl;

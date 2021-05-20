@@ -11,7 +11,12 @@
 namespace app\portal\service;
 
 
-class BaseService
-{
+use app\common\service\BaseService as CommonBaseService;
 
+class BaseService extends CommonBaseService
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
 }

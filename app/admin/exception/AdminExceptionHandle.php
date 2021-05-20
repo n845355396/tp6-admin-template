@@ -3,13 +3,11 @@
 
 namespace app\admin\exception;
 
-
-use think\exception\DbException;
 use think\exception\Handle;
 use think\Response;
 use Throwable;
 
-class ApiadminEceptionHandle extends Handle
+class AdminExceptionHandle extends Handle
 {
 
     public $httpCode = 500;

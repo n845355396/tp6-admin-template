@@ -48,7 +48,7 @@ class PaymentService extends BaseService
      * @param $data
      * @return array
      */
-    public function appPay($data)
+    public function appPay($data): array
     {
         try {
             //参数验证
@@ -63,8 +63,8 @@ class PaymentService extends BaseService
             //lpc 订单id，不是order_id请修改
             $orderId = $payOrderData['order_id'];
             //填充支付发起所需参数
-            $parmas                = $this->fillingPayParams($data['pay_type'], $orderId);
-            $payParams             = $payObj->payment($parmas);
+            $params                = $this->fillingPayParams($data['pay_type'], $orderId);
+            $payParams             = $payObj->payment($params);
             $resData['pay_data']   = $payParams;
             $resData['order_data'] = $payOrderData;
             return Result::serviceSucc($resData);
@@ -78,6 +78,7 @@ class PaymentService extends BaseService
      * @DateTime: 2021/5/19 17:09
      * @Description: 支付调起，创建支付单
      * @param $data
+     * @return array
      */
     private function createPaymentSlip($data): array
     {
@@ -97,9 +98,9 @@ class PaymentService extends BaseService
      * @Description: 填充第三方发起支付所需参数
      * @param $payType
      * @param $orderId
-     * @return AliPayParamsVo|null
+     * @return array
      */
-    private function fillingPayParams($payType, $orderId)
+    private function fillingPayParams($payType, $orderId):array
     {
         //lpc 本着不污染第三方独立性，在此处做支付参数填充吧
         //todo 我觉得不是个好办法，因为如果要添加新第三方，此处要追加,先这样吧

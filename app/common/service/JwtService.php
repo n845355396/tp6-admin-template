@@ -12,7 +12,7 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\SignatureInvalidException;
 
 
-class JwtService
+class JwtService extends BaseService
 {
     private const KEY = "!@#$%*&cqkyi";
 
