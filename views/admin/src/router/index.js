@@ -6,6 +6,9 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 
+/* Router Modules */
+import menuRouter from './modules/menu'
+
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -30,6 +33,7 @@ import Layout from '@/layout'
  * a base page that does not have permission requirements
  * all roles can be accessed
  */
+//出来左侧菜单栏路由外，所有路由放这里，路由太多请自觉分开编写
 export const constantRoutes = [{
     path: '/login',
     component: () => import('@/views/login/index'),
@@ -48,143 +52,23 @@ export const constantRoutes = [{
     redirect: '/dashboard',
     children: [{
       path: 'dashboard',
-      name: 'Dashboard',
+      name: '首页',
       component: () => import('@/views/dashboard/index'),
       meta: {
-        title: 'Dashboard',
+        title: '首页',
         icon: 'dashboard'
       }
     }]
-  },
-
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: {
-      title: 'Example',
-      icon: 'el-icon-s-help'
-    },
-    children: [{
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: {
-          title: 'Table',
-          icon: 'table'
-        }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: {
-          title: 'Tree',
-          icon: 'tree'
-        }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [{
-      path: 'index',
-      name: 'Form',
-      component: () => import('@/views/form/index'),
-      meta: {
-        title: 'Form',
-        icon: 'form'
-      }
-    }]
   }
+
+
 ]
 
 /**
  * asyncRoutes
- * the routes that need to be dynamically loaded based on user roles
+ * 左侧栏菜单路由
  */
-export const asyncRoutes = [{
-    path: 'system-setting',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: '系统设置',
-    meta: {
-      title: '系统设置',
-      icon: 'nested'
-    },
-    children: [{
-        path: 'platform-info',
-        component: () => import('@/views/nested/menu1/menu1-3'),
-        name: '平台信息',
-        meta: {
-          title: '平台信息',
-          icon: 'nested'
-        }
-      },
-      {
-        path: 'frontend-info',
-        component: () => import('@/views/nested/menu1/menu1-3'),
-        name: '前台信息',
-        meta: {
-          title: '前台信息',
-          icon: 'nested'
-        }
-      }
-    ]
-  },
-
-  {
-    path: 'file-manage',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: '文件管理',
-    meta: {
-      title: '文件管理',
-      icon: 'nested'
-    },
-    children: []
-  },
-
-  {
-    path: 'admin-manage',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: '管理员管理',
-    meta: {
-      title: '管理员管理',
-      icon: 'nested'
-    },
-    children: [{
-        path: 'role-list',
-        component: () => import('@/views/nested/menu1/menu1-3'),
-        name: '角色列表',
-        meta: {
-          title: '角色列表',
-          icon: 'nested'
-        }
-      },
-      {
-        path: 'admin-list',
-        component: () => import('@/views/nested/menu1/menu1-3'),
-        name: '管理员列表',
-        meta: {
-          title: '管理员列表',
-          icon: 'nested'
-        }
-      }
-    ]
-  },
-
-  // 404 page must be placed at the end !!!
-  // {
-  //   path: '*',
-  //   redirect: '/404',
-  //   hidden: true
-  // }
-]
+export const asyncRoutes = menuRouter
 
 const createRouter = () => new Router({
   mode: 'history', // require service support

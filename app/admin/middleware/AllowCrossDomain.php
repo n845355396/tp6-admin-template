@@ -47,7 +47,9 @@ class AllowCrossDomain
                 $header['Access-Control-Allow-Origin'] = '*';
             }
         }
-
+//        if (strtoupper($request->method()) == "OPTIONS") {
+//            exit('ok');
+//        }
         return $next($request)->header($header);
     }
 }

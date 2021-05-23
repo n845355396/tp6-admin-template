@@ -25,16 +25,30 @@ class AdminMdl extends BaseModel
     protected $table = 'sys_admin';
     protected $pk = 'admin_id';
 
-    /**
-     * @Author: lpc
-     * @DateTime: 2021/5/18 17:52
-     * @Description: 管理员角色信息
-     * @return HasOneThrough
-     */
-    public function role(): HasOneThrough
+//    /**
+//     * @Author: lpc
+//     * @DateTime: 2021/5/18 17:52
+//     * @Description: 管理员角色信息
+//     * @return HasOneThrough
+//     */
+//    public function role(): HasOneThrough
+//    {
+//        return $this
+//            ->hasOneThrough(RoleMdl::class, AdminRoleMdl::class, 'role_id', 'role_id', 'admin_id', 'role_id');
+//    }
+
+    public function getRoleAttr($value, $data)
     {
-        return $this
-            ->hasOneThrough(RoleMdl::class, AdminRoleMdl::class, 'role_id', 'role_id', 'admin_id', 'role_id');
+        if (empty($data['admin_id'])) {
+            return [];
+        }
+        $info = (new RoleMdl())->field('r.*')->alias('r')
+            ->leftJoin('sys_admin_role ar', 'ar.role_id = r.role_id')
+            ->where(['ar.admin_id' => $data['admin_id']])->find();
+        if (is_null($info)) {
+            return [];
+        }
+        return $info->toArray();
     }
 
     /**
@@ -92,7 +106,7 @@ class AdminMdl extends BaseModel
     public function infoAdmin($adminId): array
     {
         $field = 'admin_id,is_super,status,avatar,login_name,nickname,mobile,update_time,create_time';
-        $info  = $this->field($field)->with(['role'])->find($adminId);
+        $info  = $this->field($field)->append(['role'])->find($adminId);
         if (is_null($info)) {
             return [];
         }

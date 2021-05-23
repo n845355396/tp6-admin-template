@@ -1,6 +1,5 @@
 import {
   login,
-  logout,
   getInfo
 } from '@/api/user'
 import {
@@ -48,13 +47,14 @@ const actions = {
   }, userInfo) {
     const {
       username,
-      password
+      password,
+      code
     } = userInfo
     return new Promise((resolve, reject) => {
       login({
         login_name: username.trim(),
         password: password,
-        code: 1234
+        code: code
       }).then(response => {
         const {
           data
@@ -105,14 +105,11 @@ const actions = {
     state
   }) {
     return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
-        removeToken() // must remove  token  first
-        resetRouter()
-        commit('RESET_STATE')
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
+      removeToken() // must remove  token  first
+      resetRouter()
+      commit('RESET_STATE')
+      resolve()
+
     })
   },
 

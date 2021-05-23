@@ -26,7 +26,7 @@ class LoginController extends BaseController
      */
     public function login(): Json
     {
-        $data = $this->request->dataParams;
+        $data = $this->dataParams;
         $res  = Kernel::single(UserService::class)->login($data);
         return Result::disposeServiceRes($res);
     }

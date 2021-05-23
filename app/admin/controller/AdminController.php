@@ -21,6 +21,20 @@ class AdminController extends AuthController
 {
     /**
      * @Author: lpc
+     * @DateTime: 2021/5/21 10:49
+     * @Description: 获取登录管理员信息
+     */
+    public function loginAdminInfo(): Json
+    {
+        $adminId = $this->request->adminId;
+
+        $adminService = Kernel::single(AdminService::class);
+        $res          = $adminService->info($adminId);
+        return Result::succ($res);
+    }
+
+    /**
+     * @Author: lpc
      * @DateTime: 2021/5/18 17:14
      * @Description: 管理员列表
      */

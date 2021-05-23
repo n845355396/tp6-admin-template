@@ -27,7 +27,7 @@ class AdminValidate extends Validate
 
     protected $rule = [
         'login_name' => 'require|unique:sys_admin|status',
-        'password'   => 'require',
+        'password'   => 'require|length:6,16',
         'nickname'   => 'require',
         'mobile'     => 'require',
         'is_super'   => 'isSuper',
@@ -39,7 +39,9 @@ class AdminValidate extends Validate
 
     protected $message = [
         'login_name.require'          => '管理员账号必填!',
+        'login_name.unique'          => '管理员账号已存在!',
         'password.require'            => '密码必填!',
+        'password.length'             => '密码必须在6~16位之间!',
         'is_super.isSuper'            => '超级管理员唯一!',
         'code.require'                => '验证码必填!',
         'role_id.require'             => '角色必填!',
@@ -69,10 +71,14 @@ class AdminValidate extends Validate
      * @param $value
      * @return bool
      */
-    public function isSuper($value): bool
+    public function isSuper($value, $rule, $data = []): bool
     {
         if ($value == 1) {
-            $has = $this->adminMdl->where(['is_super' => 1])->count();
+            $where = [];
+            if (!empty($data['admin_id'])) {
+                $where[] = ['admin_id', '<>', $data['admin_id']];
+            }
+            $has = $this->adminMdl->where(['is_super' => 1])->where($where)->count();
             return $has <= 0;
         }
         return true;

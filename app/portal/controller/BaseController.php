@@ -23,6 +23,39 @@ use think\Validate;
 class BaseController
 {
     protected $limit = 10;
+    /**
+     * 请求参数数据
+     * @var mixed|object
+     */
+    protected $dataParams;
+    /**
+     * 登录管理员id
+     * @var mixed|object
+     */
+    private $userId;
+    /**
+     * 登录管理员信息
+     * @var mixed|object
+     */
+    private $userInfo;
+
+    /**
+     * 获取管理员id
+     * @return mixed|object
+     */
+    public function getUserId()
+    {
+        return $this->request->userId;
+    }
+
+    /**
+     * 获取管理员信息
+     * @return mixed|object
+     */
+    public function getUserInfo()
+    {
+        return $this->request->userInfo;
+    }
 
     /**
      * @Author: lpc
@@ -75,6 +108,8 @@ class BaseController
         $this->app = $app;
         //$this->request = $this->app->request;
         $this->request = app('request');
+
+        $this->dataParams = $this->request->dataParams;
 
         //var_dump($this->response);
         // 控制器初始化

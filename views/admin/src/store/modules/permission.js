@@ -32,10 +32,11 @@ export function filterAsyncRoutes(routes, data) {
     const tmp = {
       ...route
     }
-    if (data[tmp.path]) {
-      tmp['sort'] = data[tmp.path]['sort'];
+    let path = (tmp.path).replace('/', '');
+    if (data[path]) {
+      tmp['sort'] = data[path]['sort'];
       if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, data[tmp.path]['child_list'])
+        tmp.children = filterAsyncRoutes(tmp.children, data[path]['child_list'])
         //拍个序？
         tmp.children = tmp.children.sort(compareSort('sort'));
       }

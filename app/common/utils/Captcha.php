@@ -140,10 +140,11 @@ class Captcha
     {
         $code = mb_strtolower(trim($code), 'UTF-8');
         $name = 'captcha_' . $code;
-
+       
         if (!Cache::has($name) || !($generator = Cache::get($name))) {
             return false;
         }
+
         $key = $generator['key'] ?? '';
         $res = password_verify($code, $key);
 

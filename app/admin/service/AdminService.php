@@ -12,6 +12,7 @@ namespace app\admin\service;
 
 
 use app\admin\model\AdminMdl;
+use app\admin\model\AdminRoleMdl;
 use app\admin\model\RoleMdl;
 use app\admin\validate\AdminValidate;
 use app\common\service\JwtService;
@@ -47,9 +48,9 @@ class AdminService extends BaseService
      */
     public function list(array $where, $pageData): array
     {
-        $field = 'a.admin_id,a.login_name,a.status,a.mobile,a.nickname,a.create_time,a.update_time,a.is_super';
+        $field = 'a.admin_id,a.login_name,a.status,a.mobile,a.nickname,a.create_time,a.update_time,a.is_super,a.avatar';
         $data  = ($this->adminMdl)->alias('a')->field($field)
-            ->with(['role'])
+            ->append(['role'])->order('update_time desc')
             ->where($where)->paginate($pageData)->toArray();
         return Result::serviceSucc($data);
     }
@@ -183,8 +184,20 @@ class AdminService extends BaseService
             // 验证失败 输出错误信息
             return Result::serviceError($e->getMessage());
         }
+
         $adminMdl = $this->adminMdl;
-        $saveRes  = $adminMdl->saveAdminUser($data);
+
+        unset($data['password']);
+        $isSuper = $this->getAdminType($data['admin_id']);
+        if ($isSuper) {
+            $has = (new AdminRoleMdl())
+                ->where(['admin_id' => $data['admin_id'], 'role_id' => $data['role_id']])->count();
+            if ($has <= 0) {
+                return Result::serviceError('超级管理员不准修改角色');
+            }
+        }
+
+        $saveRes = $adminMdl->saveAdminUser($data);
         if ($saveRes['status']) {
             return Result::serviceSucc();
         }

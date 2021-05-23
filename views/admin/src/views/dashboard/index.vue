@@ -1,22 +1,19 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
-    <div class="dashboard-text">roles: <span v-for="role in roles" :key="role">{{ role }}</span></div>
+    <div class="dashboard-text">当前管理员: {{ name }}</div>
+    <div class="dashboard-text">状态:等待开发~</span></div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'Dashboard',
+  name: "dashboard",
   computed: {
-    ...mapGetters([
-      'name',
-      'roles'
-    ])
-  }
-}
+    ...mapGetters(["name", "roles"]),
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -69,6 +69,9 @@ class RoleController extends AuthController
             $status  = $data['status'] == 1 ? 1 : 0;
             $where[] = ['status', '=', $status];
         }
+        if (!empty($data['hide_super'])) {
+            $where[] = ['is_super_role', '=', 0];
+        }
         $list = Kernel::single(RoleService::class)->list($where, $pageData);
         return Result::succ($list);
     }

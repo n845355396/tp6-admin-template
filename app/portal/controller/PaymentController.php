@@ -27,7 +27,7 @@ class PaymentController extends AuthController
      */
     public function appPay(): Json
     {
-        $data = $this->request->dataParams;
+        $data = $this->dataParams;
         $res  = Kernel::single(PaymentService::class)->appPay($data);
         return Result::disposeServiceRes($res);
     }

@@ -19,6 +19,9 @@ Route::group('login', function () {
 
 //管理员模块
 Route::group('admin', function () {
+    Route::get('/login_admin_info', 'Admin/loginAdminInfo')
+        ->name("登录管理员信息");
+
     Route::post('/create', 'Admin/create')
         ->name("管理员创建")->append(['is_permission' => true]);
 
@@ -80,7 +83,22 @@ Route::group('upload', function () {
 //菜单管理
 Route::group('menu', function () {
     Route::get('/list', 'Menu/list')
-        ->name("菜单列表")->append(['is_permission' => false]);
+        ->name("菜单列表")->append(['is_permission' => true]);
+
+    Route::get('/info', 'Menu/info')
+        ->name("菜单信息")->append(['is_permission' => true]);
+
+    Route::post('/create', 'Menu/create')
+        ->name("菜单创建")->append(['is_permission' => true]);
+
+    Route::post('/edit', 'Menu/edit')
+        ->name("菜单编辑")->append(['is_permission' => true]);
+
+    Route::post('/hidden', 'Menu/hidden')
+        ->name("菜单隐藏/展示")->append(['is_permission' => true]);
+
+    Route::post('/delete', 'Menu/delete')
+        ->name("菜单删除")->append(['is_permission' => true]);
 
 })->name("菜单管理");
 

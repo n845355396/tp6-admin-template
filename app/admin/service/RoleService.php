@@ -79,6 +79,7 @@ class RoleService extends BaseService
             // 验证失败 输出错误信息
             return Result::serviceError($e->getMessage());
         }
+
         return $this->roleMdl->saveRole($adminId, $data);
     }
 
@@ -127,8 +128,10 @@ class RoleService extends BaseService
                     if ($group == null) {
                         $groupName                   = 'other';
                         $resList[$groupName]['name'] = '其他';
+                        $resList[$groupName]['rule'] = '其他';
                     } else {
                         $resList[$groupName]['name'] = $group->getName();
+                        $resList[$groupName]['rule'] = $group->getName();
                     }
                 }
                 $resList[$groupName]['child_list'][] = $childData;

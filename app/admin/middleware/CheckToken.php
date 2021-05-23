@@ -19,6 +19,7 @@ class CheckToken
     public function handle($request, \Closure $next)
     {
         $token = $request->header('accessToken');
+
         if (empty($token)) {
             return Result::error("非法操作", Result::TOKEN_ERROR);
         }

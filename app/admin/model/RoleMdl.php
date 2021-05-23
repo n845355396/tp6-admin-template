@@ -28,6 +28,11 @@ class RoleMdl extends BaseModel
         return $this->hasMany(RoleMenuMdl::class, 'role_id', 'role_id');
     }
 
+    public function relChildMenu()
+    {
+        return $this->hasMany(MenuMdl::class, 'menu_id', 'menu_id');
+    }
+
     public function relPermission()
     {
         return $this->hasMany(RolePermissionMdl::class, 'role_id', 'role_id');
@@ -80,10 +85,26 @@ class RoleMdl extends BaseModel
             if (empty($menuIds)) {
                 return;
             }
-            $menuIdArr = explode(',', $menuIds);
+            $menuIdArr = $menuIds;
+            if (!is_array($menuIds)) {
+                $menuIdArr = explode(',', $menuIds);
+            }
+
+            //lpc 此处防止只加入了菜单子类，没加子类的父类导致可能显示不出问题
+            $childList = (new MenuMdl())->field('parent_id')
+                ->where([['menu_id', 'in', $menuIdArr], ['parent_id', '<>', 0]])->select()->toArray();
+            if ($childList) {
+                $parentIds = array_column($childList, 'parent_id');
+                $menuIdArr = array_merge($menuIdArr, $parentIds);
+            }
+
+            $menuIdArr = array_unique($menuIdArr);
             $saveList  = [];
             $nowTime   = time();
             foreach ($menuIdArr as $menuId) {
+                if (empty($menuId)) {
+                    continue;
+                }
                 $saveList[] = [
                     'role_id'     => $roleId,
                     'menu_id'     => $menuId,
@@ -114,11 +135,18 @@ class RoleMdl extends BaseModel
             if (empty($permissionRules)) {
                 return;
             }
-            $permissionRuleArr = explode(',', $permissionRules);
+            $permissionRuleArr = $permissionRules;
+            if (!is_array($permissionRules)) {
+                $permissionRuleArr = explode(',', $permissionRules);
+            }
+            $permissionRuleArr = array_unique($permissionRuleArr);
             $saveList          = [];
             $nowTime           = time();
 
             foreach ($permissionRuleArr as $rule) {
+                if (empty($rule)) {
+                    continue;
+                }
                 $ruleObjArr = Route::getRule($rule);
                 $routObj    = reset($ruleObjArr);
                 if (!$routObj) {
@@ -167,22 +195,40 @@ class RoleMdl extends BaseModel
         $field = '*';
         $info  = $this->field($field)->where(['role_id' => $roleId])
             ->with([
-                'rel_menu'          => function ($query) {
+                'rel_menu'       => function ($query) {
                     $query->field('id,menu_id,role_id');
-                }, 'rel_permission' => function ($query) {
+                },
+                'rel_permission' => function ($query) {
                     $query->field('id,permission_name,rule,role_id');
                 }])
             ->find();
         if (is_null($info)) {
             return [];
         }
-        return $info->toArray();
+        $info = $info->toArray();
+        //lpc 筛选出一个只有子集菜单的字段数组粗来
+        $relMenu                = $info['rel_menu'];
+        $info['rel_child_menu'] = [];
+        if ($relMenu) {
+            $menuIds  = array_column($relMenu, 'menu_id');
+            $menuList = (new MenuMdl())->field('menu_id')
+                ->where([['menu_id', 'in', $menuIds], ['parent_id', '<>', 0]])->select()->toArray();
+            $menuList = array_column($menuList, 'menu_id');
+
+            foreach (array_column($relMenu, null, 'menu_id') as $key => $value) {
+                if (in_array($key, $menuList)) {
+                    $info['rel_child_menu'][] = $value;
+                }
+            }
+        }
+
+        return $info;
     }
 
     public function list($where, $pageData)
     {
         $field = '*';
-        return $this->field($field)->where($where)
+        return $this->field($field)->where($where)->order('sort asc,update_time desc')
             ->paginate($pageData)->toArray();
 
     }
@@ -190,6 +236,8 @@ class RoleMdl extends BaseModel
     public function roleDelete($roleId): array
     {
         $res = $this->where(['role_id' => $roleId])->delete();
+        (new RoleMenuMdl())->where(['role_id' => $roleId])->delete();
+        (new RolePermissionMdl())->where(['role_id' => $roleId])->delete();
         return $res ? Result::serviceSucc() : Result::serviceError();
     }
 
