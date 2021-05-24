@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       fileData: "",
-      minioUploadUrl: "http://tp6-admin-template.local/admin/upload/image",
+      minioUploadUrl: process.env.VUE_APP_BASE_API + "/upload/image",//因为自定义了上传，此处不起作用了
       maxLimit: 30,
       dialogImageUrl: "",
       dialogVisible: false,

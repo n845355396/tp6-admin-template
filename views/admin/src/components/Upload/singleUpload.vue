@@ -19,6 +19,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { Message } from "element-ui";
 export default {
   name: "singleUpload",
   props: {
@@ -29,7 +30,7 @@ export default {
   },
   data() {
     return {
-      minioUploadUrl: "http://tp6-admin-template.local/admin/upload/image",
+      minioUploadUrl: process.env.VUE_APP_BASE_API + "/upload/image",
       headers: {
         accessToken: null,
       },
@@ -49,19 +50,21 @@ export default {
       //   this.$message.error("上传头像图片只能是 JPG 格式!");
       // }
       if (!isLt10M) {
-        this.$message.error("上传头像图片大小不能超过 10MB!");
+        Message({
+          message: "上传头像图片大小不能超过 10MB!",
+          type: "warning",
+          duration: 3 * 1000,
+        });
         return false;
       }
       // return isJPG && isLt2M;
 
-      if (isLt10M) {
-        this.loading = this.$loading({
-          lock: true,
-          text: "Loading",
-          spinner: "el-icon-loading",
-          background: "rgba(0, 0, 0, 0.7)",
-        });
-      }
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
 
       return true;
     },

@@ -114,7 +114,7 @@ export default {
       }
     };
     return {
-      codeImgUrl: "http://tp6-admin-template.local/admin/login/get_code_img",
+      codeImgUrl: process.env.VUE_APP_BASE_API + "/login/get_code_img",
       loginForm: {
         username: "admin",
         password: "admin123",
