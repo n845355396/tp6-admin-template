@@ -23,6 +23,6 @@ class UserController extends AuthController
      */
     public function info(): Json
     {
-        return Result::succ();
+        return Result::succ([11111]);
     }
 }

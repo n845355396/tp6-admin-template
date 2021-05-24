@@ -83,7 +83,7 @@ Route::group('upload', function () {
 //菜单管理
 Route::group('menu', function () {
     Route::get('/list', 'Menu/list')
-        ->name("菜单列表")->append(['is_permission' => true]);
+        ->name("菜单列表")->append(['is_permission' => true])->cache(['menu_list', 10]);
 
     Route::get('/info', 'Menu/info')
         ->name("菜单信息")->append(['is_permission' => true]);

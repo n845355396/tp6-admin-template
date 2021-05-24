@@ -16,7 +16,6 @@ Route::group('login', function () {
 Route::group('user', function () {
     //用户登录
     Route::get('/info', 'User/info');
-
 });
 
 //支付
