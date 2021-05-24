@@ -28,7 +28,8 @@
     "topthink/think-captcha": "^3.0",
     "qiniu/php-sdk": "^7.3",
     "ext-gd": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "topthink/think-queue": "^3.0"
   },
   "require-dev": {
     "symfony/var-dumper": "^4.2",
