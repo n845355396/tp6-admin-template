@@ -10,7 +10,7 @@
 // +----------------------------------------------------------------------
 
 return [
-    'default'     => 'sync',
+    'default'     => 'redis',
     'connections' => [
         'sync'     => [
             'type' => 'sync',
@@ -24,10 +24,10 @@ return [
         'redis'    => [
             'type'       => 'redis',
             'queue'      => 'default',
-            'host'       => '127.0.0.1',
-            'port'       => 6379,
+            'host'       => '192.168.1.100',
+            'port'       => 6378,
             'password'   => '',
-            'select'     => 0,
+            'select'     => 1,
             'timeout'    => 0,
             'persistent' => false,
         ],

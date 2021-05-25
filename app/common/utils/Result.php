@@ -42,6 +42,7 @@ class Result
      * @Description: 接口请求响应正确返回
      * @param array $data : 数据
      * @param string $msg : 描述
+     * @param int $code
      * @return Json
      */
     public static function succ(array $data = [], string $msg = "操作成功", $code = self::OK): Json
@@ -59,6 +60,7 @@ class Result
      * @DateTime: 2020/11/13 14:20
      * @Description: 接口请求响应错误返回
      * @param string $msg : 描述
+     * @param int $code
      * @param array $data : 数据
      * @return Json
      */

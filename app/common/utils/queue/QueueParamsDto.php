@@ -11,13 +11,31 @@
 namespace app\common\utils\queue;
 
 
-class QueueParamsDto
+use app\common\task\TaskBase;
+use app\common\task\TaskInterface;
+use JsonSerializable;
+use think\facade\Config;
+
+class QueueParamsDto implements JsonSerializable
 {
+    public function __construct()
+    {
+        $taskConfig        = Config::get("sys_task");
+        $this->queue_name  = $taskConfig['queue_name'];
+        $this->unique_code = uniqid();
+    }
+
+    /**
+     * 队列唯一码
+     * @var
+     */
+    private $unique_code;
+
     /**
      * 执行具体任务的类
      * @var
      */
-    private $task_name;
+    private $task_class;
     /**
      * 任务数据
      * @var
@@ -30,51 +48,76 @@ class QueueParamsDto
     private $queue_name;
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getTaskName()
+    public function getTaskClass(): string
     {
-        return $this->task_name;
+        return $this->task_class;
     }
 
     /**
-     * @param mixed $task_name
+     * @param String $task_name
      */
-    public function setTaskName($task_name): void
+    public function setTaskClass(string $task_class): void
     {
-        $this->task_name = $task_name;
+        $this->task_class = $task_class;
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
 
     /**
-     * @param mixed $data
+     * @param array $data
      */
-    public function setData($data): void
+    public function setData(array $data): void
     {
         $this->data = $data;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getQueueName()
+    public function getQueueName(): string
     {
         return $this->queue_name;
     }
 
     /**
-     * @param mixed $queue_name
+     * 队列通道，不填则默认值
+     * @param string $queue_name
      */
-    public function setQueueName($queue_name): void
+    public function setQueueName(string $queue_name): void
     {
         $this->queue_name = $queue_name;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUniqueCode()
+    {
+        return $this->unique_code;
+    }
+
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4
+     */
+    public function jsonSerialize()
+    {
+        $data = [];
+        foreach ($this as $key => $val) {
+            if ($val !== null) $data[$key] = $val;
+        }
+        return $data;
+    }
 }

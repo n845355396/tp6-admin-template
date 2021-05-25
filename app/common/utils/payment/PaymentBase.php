@@ -12,9 +12,10 @@ namespace app\common\utils\payment;
 
 
 use app\common\utils\PayLog;
+use app\common\utils\Result;
 use think\facade\Config;
 
-class PaymentBase
+class PaymentBase extends Result
 {
     public function __construct()
     {

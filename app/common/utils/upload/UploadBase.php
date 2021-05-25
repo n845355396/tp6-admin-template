@@ -11,12 +11,13 @@
 namespace app\common\utils\upload;
 
 
+use app\common\utils\Result;
 use Error;
 use Exception;
 use LogicException;
 use think\facade\Config;
 
-class UploadBase
+class UploadBase extends Result
 {
     //上传文件配置项
     protected $config;

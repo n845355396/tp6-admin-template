@@ -29,7 +29,8 @@
     "qiniu/php-sdk": "^7.3",
     "ext-gd": "*",
     "ext-json": "*",
-    "topthink/think-queue": "^3.0"
+    "topthink/think-queue": "^3.0",
+    "ext-amqp": "*"
   },
   "require-dev": {
     "symfony/var-dumper": "^4.2",

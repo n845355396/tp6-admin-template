@@ -47,7 +47,6 @@ class UploadUtil
     public static function upload($files, bool $isImg = false): array
     {
         $obj      = self::getUploadObj();
-        $imageArr = $obj->upload($files, $isImg);
-        return Result::serviceSucc($imageArr);
+        return $obj->upload($files, $isImg);
     }
 }

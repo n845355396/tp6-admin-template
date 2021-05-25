@@ -11,14 +11,25 @@
 namespace app\common\utils\queue;
 
 
-class QueueBase
+use app\common\model\TaskMdl;
+use app\common\utils\Result;
+use think\facade\Config;
+
+class QueueBase extends Result
 {
     public function __construct()
     {
-        $this->setConfig();
+        $taskConfig          = Config::get("sys_task");
+        $type                = $taskConfig['type'];
+        $config              = $taskConfig['stores'][$type];
+        $this->config        = $config;
+        $this->sysTaskConfig = $taskConfig;
     }
 
+    protected $sysTaskConfig;
+
     private $config;
+
 
     /**
      * 队列配置信息
@@ -29,13 +40,33 @@ class QueueBase
         return $this->config;
     }
 
+
     /**
      * 队列配置信息
-     * @param mixed $config
      */
-    public function setConfig(): void
+    public function setConfig($config): void
     {
-        $this->config = [];
+        $this->config = $config;
+    }
+
+    public function upLog(string $uniqueCode, string $result, int $retryNum = 0)
+    {
+        TaskMdl::upLog($uniqueCode, $result, $retryNum);
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

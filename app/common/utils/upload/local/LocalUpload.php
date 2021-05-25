@@ -23,7 +23,7 @@ class LocalUpload extends UploadBase implements UploadInterface
     public function upload($files, bool $isImg = false): array
     {
         if (!$files) {
-            return [];
+            return self::serviceError('请上传文件！');
         }
         try {
             $config   = $this->getConfig();
@@ -39,9 +39,9 @@ class LocalUpload extends UploadBase implements UploadInterface
                 $res[$fileName] = $url;
             }
             // 将上传后的文件位置返回给前端
-            return $res;
+            return self::serviceSucc($res,'上传成功');
         } catch (Exception | Error $e) {
-            throw new Exception($e->getMessage());
+            return self::serviceError($e->getMessage());
         }
     }
 }

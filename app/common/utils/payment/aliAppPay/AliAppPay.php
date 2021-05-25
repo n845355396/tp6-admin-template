@@ -38,42 +38,49 @@ class AliAppPay extends PaymentBase implements PaymentInterface
      * @param array $payParams
      * @return string
      */
-    public function payment(array $payParams): string
+    public function payment(array $payParams): array
     {
-        $aop                     = new AopClient ();
-        $aop->gatewayUrl         = $this->gatewayUrl;
-        $aop->appId              = $this->config['app_id'];
-        $aop->rsaPrivateKey      = $this->config['rsa_private_key'];
-        $aop->alipayrsaPublicKey = $this->config['alipay_rsa_public_key'];
-        $aop->apiVersion         = '1.0';
-        $aop->signType           = 'RSA2';
-        $aop->postCharset        = 'UTF-8';
-        $aop->format             = 'json';
-        $request                 = new AlipayTradeAppPayRequest ();
-        //SDK已经封装掉了公共参数，这里只需要传入业务参数
-        $bizParams = [
-            "body"            => $payParams['body'],//大概就是简介之类的吧
-            "subject"         => $payParams['subject'],//订单标题
-            "out_trade_no"    => $payParams['out_trade_no'],//商户网站唯一订单号
-            //绝对超时时间，格式为yyyy-MM-dd HH:mm:ss,此处支付宝文档不一致，案例是timeout_express，参数是time_expire
-            "timeout_express" => "30m",
-            "total_amount"    => $payParams['total_amount'],//价格
-            "product_code"    => "QUICK_MSECURITY_PAY",//销售产品码，商家和支付宝签约的产品码,可选
+        try {
 
-        ];
-        $request->setNotifyUrl($this->notifyUrl);
-        $request->setBizContent(json_encode($bizParams));
-        //这里和普通的接口调用不同，使用的是sdkExecute
-        //htmlspecialchars是为了输出到页面时防止被浏览器将关键参数html转义，实际打印到日志以及http传输不会有这个问题
-        // echo htmlspecialchars($response);//就是orderString 可以直接给客户端请求，无需再做处理。
 
-        $this->log(PayLog::ALI_PAY_DIR,
-            '发起支付数据===》',
-            ['request_params' => $payParams, 'result' => $request]
-        );
+            $aop                     = new AopClient ();
+            $aop->gatewayUrl         = $this->gatewayUrl;
+            $aop->appId              = $this->config['app_id'];
+            $aop->rsaPrivateKey      = $this->config['rsa_private_key'];
+            $aop->alipayrsaPublicKey = $this->config['alipay_rsa_public_key'];
+            $aop->apiVersion         = '1.0';
+            $aop->signType           = 'RSA2';
+            $aop->postCharset        = 'UTF-8';
+            $aop->format             = 'json';
+            $request                 = new AlipayTradeAppPayRequest ();
+            //SDK已经封装掉了公共参数，这里只需要传入业务参数
+            $bizParams = [
+                "body"            => $payParams['body'],//大概就是简介之类的吧
+                "subject"         => $payParams['subject'],//订单标题
+                "out_trade_no"    => $payParams['out_trade_no'],//商户网站唯一订单号
+                //绝对超时时间，格式为yyyy-MM-dd HH:mm:ss,此处支付宝文档不一致，案例是timeout_express，参数是time_expire
+                "timeout_express" => "30m",
+                "total_amount"    => $payParams['total_amount'],//价格
+                "product_code"    => "QUICK_MSECURITY_PAY",//销售产品码，商家和支付宝签约的产品码,可选
 
-        //@Author: lpc @Description: 这里客户端端就是接收这样的一个字符串，不用自作聪明去转数组给前端 @DateTime: 2021/5/19 16:40
-        return $aop->sdkExecute($request);
+            ];
+            $request->setNotifyUrl($this->notifyUrl);
+            $request->setBizContent(json_encode($bizParams));
+            //这里和普通的接口调用不同，使用的是sdkExecute
+            //htmlspecialchars是为了输出到页面时防止被浏览器将关键参数html转义，实际打印到日志以及http传输不会有这个问题
+            // echo htmlspecialchars($response);//就是orderString 可以直接给客户端请求，无需再做处理。
+
+            $this->log(PayLog::ALI_PAY_DIR,
+                '发起支付数据===》',
+                ['request_params' => $payParams, 'result' => $request]
+            );
+
+            //@Author: lpc @Description: 这里客户端端就是接收这样的一个字符串，不用自作聪明去转数组给前端 @DateTime: 2021/5/19 16:40
+            $paymentData = $aop->sdkExecute($request);
+            return self::serviceSucc(['payment_data' => $paymentData], '获取成功');
+        } catch (Exception $e) {
+            return self::serviceError($e->getMessage());
+        }
     }
 
     /**
@@ -97,13 +104,14 @@ class AliAppPay extends PaymentBase implements PaymentInterface
                 '支付异步回调===》通过',
                 ['request_params' => $params, 'result' => '"验证通过']
             );
-            return ['res' => 'success'];
+
+            return self::serviceSucc(['res' => 'success'], '验证通过');
         } catch (Exception $e) {
             $this->log(PayLog::ALI_PAY_DIR,
                 '支付异步回调===》失败',
                 ['request_params' => $params, 'result' => $e->getMessage()]
             );
-            return ['res' => 'failure', 'msg' => $e->getMessage()];
+            return self::serviceError($e->getMessage(), ['res' => 'failure']);
         }
     }
 
@@ -176,16 +184,18 @@ class AliAppPay extends PaymentBase implements PaymentInterface
                 '订单退款===》' . $resData['msg'],
                 ['refund_params' => $refundData, 'result' => $resData]
             );
-            return $resData;
+            if ($resData['status']) {
+                return self::serviceSucc([], $resData['msg']);
+            }
+            return self::serviceError($resData['msg']);
 
         } catch (Exception $e) {
             $this->log(PayLog::ALI_PAY_DIR,
                 '订单退款===》失败',
                 ['refund_params' => $refundParams, 'optional_params' => $optional, 'result' => $e->getMessage()]
             );
-            $resData['status'] = false;
-            $resData['msg']    = $e->getMessage();
-            return $resData;
+
+            return self::serviceError($e->getMessage());
         }
     }
 

@@ -31,14 +31,12 @@ class PaymentService extends BaseService
         $payObj  = PayUtil::getPayObj($payType);
         $resData = $payObj->callBack();
 
-        if ($resData['res'] != 'success') {
-            return $resData['res'];
+        if (!$resData['status']) {
+            return $resData['data']['res'];
         }
-        //lpc 记录日志先
-
         //todo lpc 第三方的验证通过，下面是系统内部状态修改
         #code...
-        return $resData['res'];
+        return $resData['data']['res'];
     }
 
     /**
@@ -63,9 +61,12 @@ class PaymentService extends BaseService
             //lpc 订单id，不是order_id请修改
             $orderId = $payOrderData['order_id'];
             //填充支付发起所需参数
-            $params                = $this->fillingPayParams($data['pay_type'], $orderId);
-            $payParams             = $payObj->payment($params);
-            $resData['pay_data']   = $payParams;
+            $params = $this->fillingPayParams($data['pay_type'], $orderId);
+            $payRes = $payObj->payment($params);
+            if (!$payRes['status']) {
+                return Result::serviceError($payRes['msg']);
+            }
+            $resData['pay_data']   = $payRes['data']['payment_data'];
             $resData['order_data'] = $payOrderData;
             return Result::serviceSucc($resData);
         } catch (Exception $e) {
@@ -100,7 +101,7 @@ class PaymentService extends BaseService
      * @param $orderId
      * @return array
      */
-    private function fillingPayParams($payType, $orderId):array
+    private function fillingPayParams($payType, $orderId): array
     {
         //lpc 本着不污染第三方独立性，在此处做支付参数填充吧
         //todo 我觉得不是个好办法，因为如果要添加新第三方，此处要追加,先这样吧
