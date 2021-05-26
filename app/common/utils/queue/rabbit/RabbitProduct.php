@@ -11,7 +11,11 @@
 namespace app\common\utils\queue\rabbit;
 
 
+use AMQPChannelException;
 use AMQPConnection;
+use AMQPConnectionException;
+use AMQPExchangeException;
+use AMQPQueue;
 use app\common\utils\queue\ProducerInterface;
 use app\common\utils\queue\QueueBase;
 use app\common\utils\queue\QueueParamsDto;
@@ -26,6 +30,9 @@ class RabbitProduct extends RabbitBase implements ProducerInterface
      * @Description: 立即执行队列
      * @param QueueParamsDto $dto : 队列数据对象
      * @return array
+     * @throws AMQPChannelException
+     * @throws AMQPConnectionException
+     * @throws AMQPExchangeException
      */
     public function push(QueueParamsDto $dto): array
     {
@@ -38,8 +45,8 @@ class RabbitProduct extends RabbitBase implements ProducerInterface
         //开始事务
         $channel->startTransaction();
         $sendEd = false;
-        $config = $this->getConfig();
-        foreach ($config['routes'] as $route) {
+
+        foreach ($dto->getRoutes() as $route) {
             $sendEd = $ex->publish($jsonData, $route);
         }
 
@@ -62,6 +69,59 @@ class RabbitProduct extends RabbitBase implements ProducerInterface
      */
     public function delay(QueueParamsDto $dto, int $delayTime): array
     {
-        // TODO: Implement delay() method.
+        //消息内容
+        $jsonData = json_encode(objectToArray($dto));
+        //频道
+        $channel = $this->channel();
+        //创建交换机对象
+        $dlx = $this->exchange();
+
+        //创建死信交换机以及队列
+        $dlxKey = "normal";
+        $dlxQ   = $this->queue();
+        $dlxQ->setName('default_queue');
+        $dlxQ->setFlags(AMQP_DURABLE);
+        $dlxQ->declareQueue();
+        $dlxQ->bind($dlx->getName(), $dlxKey);
+
+        //需要被delay的交换机
+        $ex           = $this->exchange();
+        $routeKey     = "key_2";
+        $exchangeName = "exchange_delayed";
+        $ex->setName($exchangeName);
+        $ex->setType(AMQP_EX_TYPE_DIRECT);
+        $ex->setFlags(AMQP_DURABLE);
+        $ex->declareExchange();
+
+        //被delayed的队列
+        $q = $this->queue();
+        $q->setName('queue_delayed');
+        $q->setFlags(AMQP_DURABLE);
+        $arguments = [
+            'x-message-ttl'             => $delayTime * 1000, //消息TTL
+            'x-dead-letter-exchange'    => 'default.topic', //死信发送的交换机
+            'x-dead-letter-routing-key' => $dlxKey, //死信routeKey
+        ];
+        //设置属性
+        $q->setArguments($arguments);
+        $q->declareQueue();
+        $q->bind($ex->getName(), $routeKey);
+
+
+        //开始事务
+        $channel->startTransaction();
+        $sendEd = false;
+
+        $sendEd = $ex->publish($jsonData, $routeKey, AMQP_MANDATORY, array('delivery_mode' => 2));
+
+
+        if (!$sendEd) {
+            $channel->rollbackTransaction();
+            return self::serviceError('推送失败');
+        }
+        $channel->commitTransaction(); //提交事务
+        $this->close();
+        return self::serviceSucc([], '推送成功');
+
     }
 }

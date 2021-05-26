@@ -32,9 +32,15 @@ class UserController extends AuthController
         $data = new QueueParamsDto();
         $data->setData(['ts' => time(), 'bizId' => uniqid(), 'a' => 1]);
         $data->setTaskClass(TestTask::class);
+//        $data->setRoutes(['delay_route']);
 
-        $res = Kernel::single(TaskService::class)->publish($data);
+        for ($i = 0; $i < 100; $i++) {
+            $data = new QueueParamsDto();
+            $data->setData(['ts' => time(), 'bizId' => uniqid(), 'a' => 1]);
+            $data->setTaskClass(TestTask::class);
+            $res = Kernel::single(TaskService::class)->publish($data, 10);
 
+        }
         return Result::disposeServiceRes($res);
     }
 }

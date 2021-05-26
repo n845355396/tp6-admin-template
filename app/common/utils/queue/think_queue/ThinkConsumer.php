@@ -52,9 +52,10 @@ class ThinkConsumer extends QueueBase implements ConsumerInterface
      * @Author: lpc
      * @DateTime: 2021/5/24 18:15
      * @Description: 开启消费者
+     * @param string $queueName
      * @return mixed
      */
-    public function run()
+    public function run(string $queueName = '')
     {
         // TODO: Implement run() method.
     }
