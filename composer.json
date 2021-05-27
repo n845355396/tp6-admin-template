@@ -30,7 +30,8 @@
     "ext-gd": "*",
     "ext-json": "*",
     "topthink/think-queue": "^3.0",
-    "ext-amqp": "*"
+    "ext-amqp": "*",
+    "ext-curl": "*"
   },
   "require-dev": {
     "symfony/var-dumper": "^4.2",

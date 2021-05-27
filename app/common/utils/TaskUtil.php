@@ -51,7 +51,7 @@ class TaskUtil
     public static function publish(QueueParamsDto $dto, int $delayTime = 0)
     {
         $taskObj = self::getTaskObj();
-        if ($delayTime <= 0) {
+        if (empty($delayTime) || $delayTime <= 0) {
             return $taskObj->push($dto);
         } else {
             return $taskObj->delay($dto, $delayTime);

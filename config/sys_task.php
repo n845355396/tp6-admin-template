@@ -16,7 +16,7 @@ use app\common\utils\queue\think_queue\ThinkProducer;
 
 //lpc 各队列内除了product_class_name、consumer_class_name必填，参数随便定义，对应的配置将会加载进扩展的config属性内
 return [
-    'type'       => 'rabbit',
+    'type'       => 'think_queue',
     //默认队列通道名,使用think_queue请查看queue.php文件下的默认通道
     'queue_name' => 'default_queue',
     //全部队列名，在开启消费者服务后，会将下面队列全部监听

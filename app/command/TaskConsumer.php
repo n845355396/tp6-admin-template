@@ -29,9 +29,11 @@ class TaskConsumer extends Command
 
         //@Author: lpc @Description: think_queue是tp自带队列，单独处理 @DateTime: 2021/5/25 13:00
         if ($type == 'think_queue') {
+            $output->writeln('使用的是think_queue是tp自带队列，启动...');
             $output = Console::call('queue:work', ['--queue', $queueNames]);
             $output->fetch();
         } else {
+            $output->writeln('使用的是rabbitMQ，启动...');
             foreach ($taskConfig['all_queue_names'] as $queueName) {
                 exec('php think enable_queue ' . $queueName . ' > /dev/null &');
                 $output->writeln($queueName);

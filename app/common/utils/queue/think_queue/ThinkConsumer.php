@@ -33,6 +33,7 @@ class ThinkConsumer extends QueueBase implements ConsumerInterface
         if ($isJobDone) {
             //如果任务执行成功， 记得删除任务
             $job->delete();
+
             $this->upLog($data['unique_code'], TaskMdl::SUCCESS);
         } else {
             $job->delete();
