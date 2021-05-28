@@ -31,15 +31,16 @@ class UserController extends AuthController
      */
     public function info(): Json
     {
-//        $data = new QueueParamsDto();
-//        $data->setData(['ts' => time(), 'bizId' => uniqid(), 'a' => 1]);
-//        $data->setTaskClass(TestTask::class);
-////        $data->setRoutes(['delay_route']);
-//
-//        $res = Kernel::single(TaskService::class)->publish($data, 10);
 
-       $smsService = Kernel::single(SmsService::class);
-       $res = $smsService->send(15526222933,SmsUtil::TMP_TEST_SMS,['name'=>'小明','result'=>"小明走队列"]);
+            $data = new QueueParamsDto();
+            $data->setData(['ts' => time(), 'bizId' => uniqid(), 'a' => 1]);
+            $data->setTaskClass(TestTask::class);
+//        $data->setRoutes(['delay_route']);
+//            $data->setQueueName('default_queue');
+
+            $res = Kernel::single(TaskService::class)->publish($data);
+
+
 
         return Result::disposeServiceRes($res);
     }

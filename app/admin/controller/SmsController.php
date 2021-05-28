@@ -16,6 +16,7 @@ use app\common\service\Kernel;
 use app\common\service\SmsService;
 use app\common\service\TaskService;
 use app\common\utils\Result;
+use think\facade\Cache;
 use think\response\Json;
 
 class SmsController extends AuthController

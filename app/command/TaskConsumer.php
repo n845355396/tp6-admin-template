@@ -35,7 +35,9 @@ class TaskConsumer extends Command
         } else {
             $output->writeln('使用的是rabbitMQ，启动...');
             foreach ($taskConfig['all_queue_names'] as $queueName) {
-                exec('php think enable_queue ' . $queueName . ' > /dev/null &');
+                exec('php think enable_queue ' . $queueName . ' > /tmp/queueName.log &');
+//                exec('php think enable_queue ' . $queueName . ' >> /tmp/queueName.log &');
+
                 $output->writeln($queueName);
             }
 

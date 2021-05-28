@@ -25,8 +25,7 @@ class TestTask extends TaskBase implements TaskInterface
     {
         // 根据消息中的数据进行实际的业务处理...
 
-        print("我task执行了 \n");
-
+        print("任务".$data['unique_code']."执行了 \n");
         return true;
     }
 }

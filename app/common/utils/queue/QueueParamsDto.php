@@ -42,6 +42,9 @@ class QueueParamsDto implements JsonSerializable
     #=======================route命名end===================
 
 
+
+
+
     #================参数选填区start======================
     //队列唯一码,
     private $unique_code;
@@ -52,12 +55,19 @@ class QueueParamsDto implements JsonSerializable
     private $routes;
     #================参数选填区end======================
 
+
+
+
+
     #================参数必填区start======================
     //执行具体任务的类
     private $task_class;
     //任务数据
     private $data;
     #================参数必填区end======================
+
+
+
 
 
     #==========================GetSet================================

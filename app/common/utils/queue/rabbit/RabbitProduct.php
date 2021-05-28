@@ -40,6 +40,16 @@ class RabbitProduct extends RabbitBase implements ProducerInterface
         $channel = $this->channel();
         //创建交换机对象
         $ex = $this->exchange();
+
+        //lpc 这里将对应的路由绑定到队列上
+        $routeKey     = "normal";
+        $q = $this->queue();
+        $q->setName('default_queue');
+        $q->setFlags(AMQP_DURABLE);
+        $q->declareQueue();
+        $q->bind($ex->getName(), $routeKey);
+
+
         //消息内容
         $jsonData = json_encode(objectToArray($dto));
         //开始事务
