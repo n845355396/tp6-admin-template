@@ -50,21 +50,38 @@ https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
 ## 系统功能
 
 ~~~
-1、RBAC权限管理：【已完成】
+1、后台RBAC权限管理：【已完成】
     本系统角色权限管理分开菜单管理跟功能权限
     菜单权限负责前台侧边栏展示，功能权限负责角色是否能操作
+    菜单权限实现：
+        数据库存放了menu菜单表，然后通过角色关联对应菜单，来实现前端菜       单栏权限。
+    功能权限实现：
+        admin应用的路由的append加了个is_permission字段，为true时表示必须走权限，不写或false表示不走权限。
+        功能权限检查在app\admin\middleware\CheckToken里
        
 2、第三方支付扩展：【已完成】
+    提供服务类：app\portal\service\PaymentService
+    配置文件：config/pay.php
     已配置【app端支付宝】
         
 3、文件上传扩展：【已完成】
+    提供服务类：app\common\service\UploadService
+    配置文件：config/upload.php
     已配置【本地、七牛云】
         
 4、消息队列扩展：【懵了...】
+    提供服务类：app\common\service\TaskService
     暂时实现了think_queue跟rabbitMq的延迟、正常发布队列两种.
     感觉写的不太行，先搁着吧
+    配置文件：config/sys_task.php
+    开启消费者：php think task_consumer
+    设计思路：在配置文件下配置好系统要使用的队列
+              然后就去开启消费者监听命令，php think task_consumer
+              ps:在开启task_consumer时，tp自带think_queue支持同时开启多个消费者，其他自定义的mq开启多个消费者因为会阻塞，不能循环开启消费者，所以我加了个php think enable_queue 队列名  ，然后在task_consumer里使用exec('php think enable_queue ' . $queueName . ' > /dev/null &');来实现多消费者执行，这样我觉得有点不合适。
         
 5、短信扩展：【已完成】
+    提供服务类：app\common\service\SmsService
+    配置文件：config/sms.php
     支持了可选短信发送类型【code码、自定义】
     支持了短信直接发送、队列发送、队列延时发送
     平台可查看短信发送状态，支持重发操作
