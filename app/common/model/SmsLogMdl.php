@@ -13,7 +13,7 @@ namespace app\common\model;
 
 use think\facade\Config;
 
-class SmsLog extends BaseModel
+class SmsLogMdl extends BaseModel
 {
     protected $table = 'sms_log';
     protected $pk = 'sms_id';
@@ -21,6 +21,15 @@ class SmsLog extends BaseModel
     const WAITING = 'waiting';//等待发送中
     const SUCCESS = 'success';//发送成功
     const FAILED = 'failed';//发送失败
+
+
+    public function getRetryTimeAttr($value)
+    {
+        if (!$value) {
+            return '';
+        }
+        return date('Y-m-d H:i:s', $value);
+    }
 
     /**
      * @Author: lpc
@@ -88,4 +97,24 @@ class SmsLog extends BaseModel
         return self::where(['sms_id' => $smsId])->save($data);
     }
 
+    public function list($where, $pageData, $orderBy = 'update_time desc'): array
+    {
+        $field = '*';
+        return $this->field($field)->where($where)
+            ->order($orderBy)->paginate($pageData)->toArray();
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

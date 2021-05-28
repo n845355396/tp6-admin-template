@@ -13,6 +13,7 @@ namespace app\common\utils;
 
 use Error;
 use Exception;
+use think\facade\Cache;
 use think\facade\Config;
 
 class SmsUtil
@@ -74,12 +75,14 @@ class SmsUtil
      * @Author: lpc
      * @DateTime: 2021/5/26 18:57
      * @Description: 生成短信验证码
+     * @param $mobile
      * @return int
      */
-    public static function generateVerificationCode(): int
+    public static function generateVerificationCode($mobile): int
     {
         $code = mt_rand(1000, 9999);
-        //todo 生成缓存
+        //生成缓存，过期时间60秒
+        Cache::set('sms_code_' . $mobile, $code, 3600);
         return $code;
     }
 
@@ -87,12 +90,17 @@ class SmsUtil
      * @Author: lpc
      * @DateTime: 2021/5/26 18:57
      * @Description: 检查短信验证码正确性
+     * @param $mobile
      * @param $code
      * @return bool
      */
-    public static function checkCode($code): bool
+    public static function checkCode($mobile, $code): bool
     {
-        return true;
+        $cacheCode = Cache::pull('sms_code_' . $mobile);
+        if ($code == null) {
+            return false;
+        }
+        return $code == $cacheCode;
     }
 }
 

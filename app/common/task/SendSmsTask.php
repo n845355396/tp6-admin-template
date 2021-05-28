@@ -11,7 +11,7 @@
 namespace app\common\task;
 
 
-use app\common\model\SmsLog;
+use app\common\model\SmsLogMdl;
 use app\common\utils\SmsUtil;
 use Exception;
 
@@ -34,10 +34,10 @@ class SendSmsTask extends TaskBase implements TaskInterface
                 $paramsData['data'],
                 $paramsData['mode']);
 
-            $smsStatus = $res['status'] ? SmsLog::SUCCESS : SmsLog::FAILED;
+            $smsStatus = $res['status'] ? SmsLogMdl::SUCCESS : SmsLogMdl::FAILED;
 
             //更新短信日志
-            SmsLog::upStatus($paramsData['sms_log_id'], $smsStatus, $res['data']);
+            SmsLogMdl::upStatus($paramsData['sms_log_id'], $smsStatus, $res['data']);
 
             return $res['status'];
 

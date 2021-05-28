@@ -31,8 +31,8 @@ return [
         //助通短信
         'zthy' => [
             'class_name' => ZthySms::class,
-            'username'   => 'b15902185331',
-            'password'   => 'xH5jHoly',
+            'username'   => '123',
+            'password'   => '321',
         ],
     ]
 ];

@@ -17,11 +17,17 @@ class BaseModel extends Model
 {
     public function getCreateTimeAttr($value)
     {
+        if (!$value) {
+            return '';
+        }
         return date('Y-m-d H:i:s', $value);
     }
 
     public function getUpdateTimeAttr($value)
     {
+        if (!$value) {
+            return '';
+        }
         return date('Y-m-d H:i:s', $value);
     }
 }

@@ -55,4 +55,11 @@ class TaskMdl extends BaseModel
         (new TaskMdl)->insert($saveData);
     }
 
+    public function list($where, $pageData, $orderBy = 'update_time desc'): array
+    {
+        $field = '*';
+        return $this->field($field)->where($where)
+            ->order($orderBy)->paginate($pageData)->toArray();
+    }
+
 }

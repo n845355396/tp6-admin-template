@@ -18,6 +18,16 @@ use app\common\utils\TaskUtil;
 
 class TaskService extends BaseService
 {
+    /**
+     * @var TaskMdl
+     */
+    private $taskMdl;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->taskMdl = new TaskMdl();
+    }
 
     /**
      * @Author: lpc
@@ -34,6 +44,11 @@ class TaskService extends BaseService
             TaskMdl::log($dto);
         }
         return $res;
+    }
+
+    public function list($where, $pageData): array
+    {
+        return $this->taskMdl->list($where, $pageData);
     }
 }
 

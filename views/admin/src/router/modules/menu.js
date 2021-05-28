@@ -11,15 +11,35 @@ const menuRouter = [{
     title: '系统管理',
     icon: 'el-icon-setting'
   },
-  children: [{
-    path: '/platform-info',
-    component: () => import('@/views/dashboard/index'),
-    name: '平台设置',
-    meta: {
-      title: '平台设置',
-      icon: 'el-icon-setting'
+  children: [
+    {
+      path: '/platform-info',
+      component: () => import('@/views/dashboard/index'),
+      name: '平台设置',
+      meta: {
+        title: '平台设置',
+        icon: 'el-icon-setting'
+      }
+    },
+    {
+      path: '/queue-list',
+      component: () => import('@/views/queue/index'),
+      name: '队列列表',
+      meta: {
+        title: '队列列表',
+        icon: 'el-icon-s-unfold'
+      }
+    },
+    {
+      path: '/sms-list',
+      component: () => import('@/views/sms/index'),
+      name: '短信列表',
+      meta: {
+        title: '短信列表',
+        icon: 'el-icon-message'
+      }
     }
-  }
+
   ]
 },
 
@@ -73,25 +93,6 @@ const menuRouter = [{
   ]
 },
 
-{
-  path: '/task',
-  component: Layout,
-  name: '任务管理',
-  redirect: '/queue-list',
-  meta: {
-    title: '任务管理',
-    icon: 'el-icon-s-unfold'
-  },
-  children: [{
-    path: '/queue-list',
-    component: () => import('@/views/dashboard/index'),
-    name: '队列管理',
-    meta: {
-      title: '队列管理',
-      icon: 'el-icon-s-unfold'
-    }
-  }]
-},
 
   // 404 page must be placed at the end !!!
   // {

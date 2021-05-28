@@ -83,7 +83,7 @@ Route::group('upload', function () {
 //菜单管理
 Route::group('menu', function () {
     Route::get('/list', 'Menu/list')
-        ->name("菜单列表")->append(['is_permission' => true])->cache(['menu_list', 10]);
+        ->name("菜单列表")->append(['is_permission' => true]);
 
     Route::get('/info', 'Menu/info')
         ->name("菜单信息")->append(['is_permission' => true]);
@@ -101,4 +101,38 @@ Route::group('menu', function () {
         ->name("菜单删除")->append(['is_permission' => true]);
 
 })->name("菜单管理");
+
+//队列管理
+Route::group('task', function () {
+    Route::get('/list', 'Task/list')
+        ->name("队列列表")->append(['is_permission' => true]);
+
+})->name("队列管理");
+
+//短信管理
+Route::group('sms', function () {
+    Route::get('/list', 'Sms/list')
+        ->name("短信列表")->append(['is_permission' => true]);
+
+    Route::post('/retry', 'Sms/retry')
+        ->name("短信重发")->append(['is_permission' => true]);
+
+})->name("短信管理");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

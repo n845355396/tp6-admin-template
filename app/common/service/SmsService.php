@@ -11,7 +11,7 @@
 namespace app\common\service;
 
 
-use app\common\model\SmsLog;
+use app\common\model\SmsLogMdl;
 use app\common\task\SendSmsTask;
 use app\common\utils\queue\QueueParamsDto;
 use app\common\utils\Result;
@@ -22,6 +22,22 @@ use Qiniu\Sms\Sms;
 
 class SmsService extends BaseService
 {
+    /**
+     * @var SmsLogMdl
+     */
+    private $smsLogMdl;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->smsLogMdl = new SmsLogMdl();
+    }
+
+    public function list($where, $pageData): array
+    {
+        return $this->smsLogMdl->list($where, $pageData);
+    }
+
     /**
      * @Author: lpc
      * @DateTime: 2021/5/27 10:29
@@ -39,9 +55,9 @@ class SmsService extends BaseService
             $template,
             $data,
             $mode);
-        $smsStatus = $res['status'] ? SmsLog::SUCCESS : SmsLog::FAILED;
+        $smsStatus = $res['status'] ? SmsLogMdl::SUCCESS : SmsLogMdl::FAILED;
         //添加短信发送日志
-        SmsLog::addLog($mode, $template, $mobile, $data, $res['data'], $smsStatus);
+        SmsLogMdl::addLog($mode, $template, $mobile, $data, $res['data'], $smsStatus);
         return $res;
     }
 
@@ -60,8 +76,8 @@ class SmsService extends BaseService
         //因为要跑队列短信状态会有个waiting过程
         //我怕在下面加日志会导致队列执行完成了，日志还没添加的问题
         //所以先给日志写上
-        $smsStatus = SmsLog::WAITING;
-        $logId     = SmsLog::addLog($mode, $template, $mobile, $data, '', $smsStatus);
+        $smsStatus = SmsLogMdl::WAITING;
+        $logId     = SmsLogMdl::addLog($mode, $template, $mobile, $data, '', $smsStatus);
 
         $dto     = new QueueParamsDto();
         $smsData = [
@@ -86,11 +102,14 @@ class SmsService extends BaseService
      */
     public function smsRetry(int $smsLogId, string $sendType = 'normal', int $delayTime = 0)
     {
-        $smsLogMdl = new SmsLog();
+        $smsLogMdl = new SmsLogMdl();
         //先拿到需要重发短信的数据
         $smsInfo = $smsLogMdl->where(['sms_id' => $smsLogId])->find();
         if (is_null($smsInfo)) {
             return Result::serviceError('短信日志不存在！');
+        }
+        if ($smsInfo['is_retry']) {
+            return Result::serviceError('短信已重发！');
         }
         $data = json_decode($smsInfo['request_data'], true);
         //拿到数据后组织短信发送
@@ -100,10 +119,12 @@ class SmsService extends BaseService
             $res = $this->sendToQueue($smsInfo['mobile'], $smsInfo['type'], $data, $delayTime, $smsInfo['send_mode']);
         }
         //发送后无论成功与否，原日志记录已重发操作
-        SmsLog::retryLog($smsLogId);
+        SmsLogMdl::retryLog($smsLogId);
         //返回结果
         return $res;
     }
+
+
 }
 
 
