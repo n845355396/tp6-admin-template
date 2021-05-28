@@ -47,6 +47,15 @@ https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
 很多配置项写在了.env文件里，参考文件.example.env部署
 ~~~
 
+## 开发者个人思路
+
+~~~
+1、平台在调用service或者utils等只需要单例模式时，提供了Kernel::single(SmsService::class);写法，(ps:本来打算自己写，后发现tp自带有,直接封装使用了)
+
+2、contro层在获取请求参数时进行了封装:使用中间件RequestParam来获取请求参数；
+    继承了baseController的可直接$data = $this->dataParams;
+~~~
+
 ## 系统功能
 
 ~~~
@@ -86,5 +95,6 @@ https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
     支持了短信直接发送、队列发送、队列延时发送
     平台可查看短信发送状态，支持重发操作
 
+6、请求缓存：【TP自带直接使用】
 ..........
 ~~~
