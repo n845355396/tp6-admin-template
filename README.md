@@ -50,9 +50,12 @@ https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
 ## 开发者个人思路
 
 ~~~
-1、平台在调用service或者utils等只需要单例模式时，提供了Kernel::single(SmsService::class);写法，(ps:本来打算自己写，后发现tp自带有,直接封装使用了)
+1、平台在调用service或者utils等只需要单例模式时；
+    提供了Kernel::single(SmsService::class);写法；
+    (ps:本来打算自己写，后发现tp自带有,直接封装使用了)
 
-2、contro层在获取请求参数时进行了封装:使用中间件RequestParam来获取请求参数；
+2、contro层在获取请求参数时进行了封装:
+    使用中间件RequestParam来获取请求参数；
     继承了baseController的可直接$data = $this->dataParams;
 ~~~
 
@@ -63,9 +66,11 @@ https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
     本系统角色权限管理分开菜单管理跟功能权限
     菜单权限负责前台侧边栏展示，功能权限负责角色是否能操作
     菜单权限实现：
-        数据库存放了menu菜单表，然后通过角色关联对应菜单，来实现前端菜       单栏权限。
+        数据库存放了menu菜单表
+        然后通过角色关联对应菜单来实现前端菜单栏权限。
     功能权限实现：
-        admin应用的路由的append加了个is_permission字段，为true时表示必须走权限，不写或false表示不走权限。
+        admin应用的路由的append加了个is_permission字段;
+        为true时表示必须走权限，不写或false表示不走权限。
         功能权限检查在app\admin\middleware\CheckToken里
        
 2、第三方支付扩展：【已完成】
@@ -86,7 +91,11 @@ https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
     开启消费者：php think task_consumer
     设计思路：在配置文件下配置好系统要使用的队列
               然后就去开启消费者监听命令，php think task_consumer
-              ps:在开启task_consumer时，tp自带think_queue支持同时开启多个消费者，其他自定义的mq开启多个消费者因为会阻塞，不能循环开启消费者，所以我加了个php think enable_queue 队列名  ，然后在task_consumer里使用exec('php think enable_queue ' . $queueName . ' > /dev/null &');来实现多消费者执行，这样我觉得有点不合适。
+              ps:在开启task_consumer时，tp自带think_queue支持同时开启多个消费者;
+              其他自定义的mq开启多个消费者因为会阻塞,不能循环开启消费者;
+              所以我加了个php think enable_queue 队列名;
+              然后在task_consumer里使用exec('php think enable_queue ' . $queueName . ' > /dev/null &');
+              来实现多消费者执行，这样我觉得有点不合适。
         
 5、短信扩展：【已完成】
     提供服务类：app\common\service\SmsService
