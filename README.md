@@ -98,7 +98,6 @@ https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
               我在task_consumer里循环执行:php think enable_queue 队列名来批量开启消费者；
               
     使用方法代码：
-     ```php
      #--------队列使用案例 start---------
         $data = new QueueParamsDto();
         $data->setData(['ts' => time(), 'bizId' => uniqid(), 'a' => 1]);
@@ -110,7 +109,7 @@ https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
         $res = Kernel::single(TaskService::class)->publish($data);//即时队列
         $res = Kernel::single(TaskService::class)->publish($data,10);//延时队列,10秒后执行
     #--------队列使用案例 end---------
-    ```
+    
               
         
 5、短信扩展：【已完成】
@@ -123,3 +122,4 @@ https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
 6、请求缓存：【TP自带直接使用】
 ..........
 ~~~
+
