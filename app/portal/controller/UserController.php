@@ -32,14 +32,13 @@ class UserController extends AuthController
     public function info(): Json
     {
 
-            $data = new QueueParamsDto();
-            $data->setData(['ts' => time(), 'bizId' => uniqid(), 'a' => 1]);
-            $data->setTaskClass(TestTask::class);
-//        $data->setRoutes(['delay_route']);
+        $data = new QueueParamsDto();
+        $data->setData(['ts' => time(), 'bizId' => uniqid(), 'a' => 1]);
+        $data->setTaskClass(TestTask::class);
+//        $data->setRoutes(['cancel_order','notify']);
 //            $data->setQueueName('default_queue');
 
-            $res = Kernel::single(TaskService::class)->publish($data);
-
+        $res = Kernel::single(TaskService::class)->publish($data);
 
 
         return Result::disposeServiceRes($res);

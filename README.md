@@ -86,16 +86,32 @@ https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
 4、消息队列扩展：【懵了...】
     提供服务类：app\common\service\TaskService
     暂时实现了think_queue跟rabbitMq的延迟、正常发布队列两种.
-    感觉写的不太行，先搁着吧
     配置文件：config/sys_task.php
+    
     开启消费者：php think task_consumer
+            PS：运行前php.ini将system()从禁用里去掉；
+            
     设计思路：在配置文件下配置好系统要使用的队列
               然后就去开启消费者监听命令，php think task_consumer
-              ps:在开启task_consumer时，tp自带think_queue支持同时开启多个消费者;
+              PS:在开启task_consumer时，tp自带think_queue支持同时开启多个消费者;
               其他自定义的mq开启多个消费者因为会阻塞,不能循环开启消费者;
-              所以我加了个php think enable_queue 队列名;
-              然后在task_consumer里使用exec('php think enable_queue ' . $queueName . ' > /dev/null &');
-              来实现多消费者执行，这样我觉得有点不合适。
+              我在task_consumer里循环执行:php think enable_queue 队列名来批量开启消费者；
+              
+    使用方法代码：
+     ```php
+     #--------队列使用案例 start---------
+        $data = new QueueParamsDto();
+        $data->setData(['ts' => time(), 'bizId' => uniqid(), 'a' => 1]);
+        $data->setTaskClass(TestTask::class);
+        //lpc route主要在rabbit里用，queueName是tp自带的用，都有默认值
+        //$data->setRoutes(['cancel_order','notify']);
+        //$data->setQueueName('default_queue');
+
+        $res = Kernel::single(TaskService::class)->publish($data);//即时队列
+        $res = Kernel::single(TaskService::class)->publish($data,10);//延时队列,10秒后执行
+    #--------队列使用案例 end---------
+    ```
+              
         
 5、短信扩展：【已完成】
     提供服务类：app\common\service\SmsService

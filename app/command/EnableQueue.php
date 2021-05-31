@@ -24,12 +24,12 @@ class EnableQueue extends Command
     {
         $queue = trim($input->getArgument('queue'));
 
-        if (empty($queue)){
+        if (empty($queue)) {
             $output->writeln('一个队列名不存在！');
             return;
         }
         // 指令输出
-        $output->writeln('正在运行队列'.$queue);
+        $output->writeln('正在运行队列' . $queue);
 
         $taskConfig = Config::get("sys_task");
         $type       = $taskConfig['type'];

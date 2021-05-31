@@ -39,10 +39,9 @@ class QueueParamsDto implements JsonSerializable
     #=======================route命名start=================
     //默认路由
     const  NORMAL_ROUTE = 'normal';
+    const  NOTIFY_ROUTE = 'notify';
+    const  CANCEL_ORDER_ROUTE = 'cancel_order';
     #=======================route命名end===================
-
-
-
 
 
     #================参数选填区start======================
@@ -56,18 +55,12 @@ class QueueParamsDto implements JsonSerializable
     #================参数选填区end======================
 
 
-
-
-
     #================参数必填区start======================
     //执行具体任务的类
     private $task_class;
     //任务数据
     private $data;
     #================参数必填区end======================
-
-
-
 
 
     #==========================GetSet================================

@@ -22,7 +22,9 @@ class RabbitConsumer extends RabbitBase implements ConsumerInterface
      * @Author: lpc
      * @DateTime: 2021/5/24 18:15
      * @Description: 开启消费者
+     * @param string $queueName
      * @return mixed
+     * @throws Exception
      */
     public function run(string $queueName = '')
     {
@@ -30,10 +32,21 @@ class RabbitConsumer extends RabbitBase implements ConsumerInterface
             //创建队列
             $queueObj = $this->queue();
             $queueObj->setName($queueName);
-            $queueObj->setFlags(AMQP_EXCLUSIVE); //持久化
+            $queueObj->setFlags(AMQP_DURABLE); //持久化
+            $queueObj->declareQueue();
+
+            //lpc 这里批量绑定路由
+            $config          = $this->getConfig();
+            $defaultExchange = $config['exchange'];
+            $routes          = $config['routes'];
+
+            if (!empty($routes[$queueName])) {
+                foreach ($routes[$queueName] as $routeKey) {
+                    $queueObj->bind($defaultExchange, $routeKey);
+                }
+            }
 
             $consumerTag = 'rabbit_mq_default_consumer_tag';
-
 
             //阻塞模式接收消息
             echo "队列消费者已启动:\n";
