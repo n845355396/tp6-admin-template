@@ -120,6 +120,14 @@ https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
     平台可查看短信发送状态，支持重发操作
 
 6、请求缓存：【TP自带直接使用】
+
+7、导入导出扩展：【已完成】
+    提供服务类：app\common\service\ExcelService
+    配置文件：config/excel.php
+    
+    导出支持返回下载链接、直接输出文件流
+    导入支持url、本地文件读取
+
 ..........
 ~~~
 
