@@ -57,6 +57,12 @@ https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
 2、contro层在获取请求参数时进行了封装:
     使用中间件RequestParam来获取请求参数；
     继承了baseController的可直接$data = $this->dataParams;
+ 
+3、在支付、短信、队列等这些扩展时，在utils下都加了对应的工具类;
+   然后在service层去调用对应的工具类;
+   这样的目的:
+        一是为了保证扩展的独立性;
+        二是可以在工具类里做一些个性化操作;
 ~~~
 
 ## 系统功能
