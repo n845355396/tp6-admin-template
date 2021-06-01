@@ -11,6 +11,7 @@
 namespace app\portal\service;
 
 
+use app\common\service\Kernel;
 use app\common\utils\payment\vo\AliPayParamsVo;
 use app\common\utils\PayUtil;
 use app\common\utils\Result;
@@ -28,7 +29,7 @@ class PaymentService extends BaseService
     public function notify($payType)
     {
         //获取第三方支付对象
-        $payObj  = PayUtil::getPayObj($payType);
+        $payObj  = Kernel::single(PayUtil::class, [$payType]);
         $resData = $payObj->callBack();
 
         if (!$resData['status']) {
@@ -57,7 +58,7 @@ class PaymentService extends BaseService
             //创建支付单
             $payOrderData = $this->createPaymentSlip($data);
             //获取第三方支付对象
-            $payObj = PayUtil::getPayObj($data['pay_type']);
+            $payObj = Kernel::single(PayUtil::class, [$data['pay_type']]);
             //lpc 订单id，不是order_id请修改
             $orderId = $payOrderData['order_id'];
             //填充支付发起所需参数

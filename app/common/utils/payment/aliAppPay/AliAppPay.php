@@ -120,9 +120,10 @@ class AliAppPay extends PaymentBase implements PaymentInterface
      * @DateTime: 2021/5/19 15:30
      * @Description: 第三方支付退款
      * @param array $refundParams
-     * @return mixed
+     * @param array $optional
+     * @return array
      */
-    public function refund(array $refundParams, $optional = [])
+    public function refund(array $refundParams, array $optional = []): array
     {
         try {
             if (empty($refundParams['out_trade_no']) && empty($refundParams['trade_no'])) {
