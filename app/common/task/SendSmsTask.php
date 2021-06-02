@@ -12,6 +12,7 @@ namespace app\common\task;
 
 
 use app\common\model\SmsLogMdl;
+use app\common\utils\Result;
 use app\common\utils\SmsUtil;
 use Exception;
 
@@ -22,10 +23,9 @@ class SendSmsTask extends TaskBase implements TaskInterface
      * @DateTime: 2021/5/24 17:54
      * @Description: 任务执行方法
      * @param $data : 执行数据
-     * @return bool
-     * @throws \Exception
+     * @return array
      */
-    public function handle($data): bool
+    public function handle($data): array
     {
         try {
             $paramsData = $data['data'];
@@ -39,11 +39,10 @@ class SendSmsTask extends TaskBase implements TaskInterface
             //更新短信日志
             SmsLogMdl::upStatus($paramsData['sms_log_id'], $smsStatus, $res['data']);
 
-            return $res['status'];
+            return $res;
 
         } catch (Exception $e) {
-            echo $e->getMessage();
-            return false;
+            return Result::serviceError($e->getMessage());
         }
     }
 }

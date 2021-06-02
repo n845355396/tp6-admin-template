@@ -53,13 +53,15 @@ class RabbitConsumer extends RabbitBase implements ConsumerInterface
             while (true) {
                 echo "执行中...:\n";
                 $queueObj->consume(function ($envelope, $queue) {
-                    $data      = json_decode($envelope->getBody(), true);
-                    $class     = $data['task_class'];
+                    $data  = json_decode($envelope->getBody(), true);
+                    $class = $data['task_class'];
+
                     $isJobDone = (new $class)->handle($data);
 
-                    if ($isJobDone) {
+                    if ($isJobDone['status']) {
                         $this->upLog($data['unique_code'], TaskMdl::SUCCESS);
                     } else {
+                        var_export($isJobDone);
                         $this->upLog($data['unique_code'], TaskMdl::FAILED);
                     }
 

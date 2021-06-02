@@ -18,7 +18,7 @@ interface TaskInterface
      * @DateTime: 2021/5/24 17:54
      * @Description: 任务执行方法
      * @param $data : 执行数据
-     * @return bool
+     * @return array
      */
-    public function handle($data): bool;
+    public function handle($data): array;
 }
