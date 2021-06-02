@@ -11,12 +11,16 @@
 namespace app\portal\service;
 
 
+use app\common\facade\RedisFacade;
 use app\common\service\Kernel;
 use app\common\utils\payment\vo\AliPayParamsVo;
 use app\common\utils\PayUtil;
+use app\common\utils\RedisUtil;
 use app\common\utils\Result;
 use Exception;
 use LogicException;
+use think\cache\driver\Redis;
+use think\facade\Cache;
 
 class PaymentService extends BaseService
 {
