@@ -61,8 +61,6 @@ class RabbitConsumer extends RabbitBase implements ConsumerInterface
                     if ($isJobDone['status']) {
                         $this->upLog($data['unique_code'], $isJobDone, TaskMdl::SUCCESS);
                     } else {
-                        var_export('队列任务失败码' . $data['unique_code'] . "\r\n");
-                        var_export($isJobDone . "\r\n");
                         $this->upLog($data['unique_code'], $isJobDone, TaskMdl::FAILED);
                     }
 

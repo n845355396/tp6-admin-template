@@ -49,9 +49,14 @@ class QueueBase extends Result
         $this->config = $config;
     }
 
-    public function upLog(string $uniqueCode,array $resultData, string $result, int $retryNum = 0)
+    public function upLog(string $uniqueCode, array $resultData, string $result, int $retryNum = 0)
     {
-        TaskMdl::upLog($uniqueCode,$resultData, $result, $retryNum);
+        TaskMdl::upLog($uniqueCode, $resultData, $result, $retryNum);
+        if ($result == TaskMdl::FAILED) {
+            var_export('队列任务失败码' . $uniqueCode . "\r\n");
+            var_export($resultData);
+            var_export("\r\n");
+        }
     }
 
 }

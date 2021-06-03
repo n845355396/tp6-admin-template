@@ -35,8 +35,6 @@ class ThinkConsumer extends QueueBase implements ConsumerInterface
             $job->delete();
             $this->upLog($data['unique_code'], $isJobDone, TaskMdl::SUCCESS);
         } else {
-            var_export('队列任务失败码' . $data['unique_code'] . "\r\n");
-            var_export($isJobDone . "\r\n");
             $job->delete();
             $this->upLog($data['unique_code'], $isJobDone, TaskMdl::FAILED);
 //            if ($job->attempts() > 3) {
