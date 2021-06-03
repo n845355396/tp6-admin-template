@@ -26,11 +26,12 @@ class TaskMdl extends BaseModel
 
     //日志状态结果类目 end
 
-    public static function upLog(string $uniqueCode, string $result, int $retryNum = 0)
+    public static function upLog(string $uniqueCode, $resultData, string $result, int $retryNum = 0)
     {
         $nowTime = time();
         $upData  = [
             'result'      => $result,
+            'result_data' => json_encode($resultData, true),
             'update_time' => $nowTime
         ];
         if ($retryNum > 0) {
@@ -46,7 +47,7 @@ class TaskMdl extends BaseModel
             'unique_code'  => $dto->getUniqueCode(),
             'queue_name'   => $dto->getQueueName(),
             'task_name'    => $dto->getTaskClass(),
-            'request_data' => json_encode($dto->getData()),
+            'request_data' => json_encode($dto->getData(), true),
             'result'       => self::WAITING,
             'create_time'  => $nowTime,
             'update_time'  => $nowTime

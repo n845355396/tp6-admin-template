@@ -33,10 +33,12 @@ class ThinkConsumer extends QueueBase implements ConsumerInterface
         if ($isJobDone['status']) {
             //如果任务执行成功， 记得删除任务
             $job->delete();
-            $this->upLog($data['unique_code'], TaskMdl::SUCCESS);
+            $this->upLog($data['unique_code'], $isJobDone, TaskMdl::SUCCESS);
         } else {
+            var_export('队列任务失败码' . $data['unique_code'] . "\r\n");
+            var_export($isJobDone . "\r\n");
             $job->delete();
-            $this->upLog($data['unique_code'], TaskMdl::FAILED);
+            $this->upLog($data['unique_code'], $isJobDone, TaskMdl::FAILED);
 //            if ($job->attempts() > 3) {
 //                //通过这个方法可以检查这个任务已经重试了几次了
 //                print("<warn>Job已重试超过3次!!" . "</warn>\n");
