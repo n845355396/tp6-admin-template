@@ -49,7 +49,7 @@ class QueueBase extends Result
         $this->config = $config;
     }
 
-    public function upLog(string $uniqueCode,string $resultData, string $result, int $retryNum = 0)
+    public function upLog(string $uniqueCode,array $resultData, string $result, int $retryNum = 0)
     {
         TaskMdl::upLog($uniqueCode,$resultData, $result, $retryNum);
     }

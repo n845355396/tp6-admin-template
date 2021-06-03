@@ -26,7 +26,7 @@ class TaskMdl extends BaseModel
 
     //日志状态结果类目 end
 
-    public static function upLog(string $uniqueCode, $resultData, string $result, int $retryNum = 0)
+    public static function upLog(string $uniqueCode,array $resultData, string $result, int $retryNum = 0)
     {
         $nowTime = time();
         $upData  = [
