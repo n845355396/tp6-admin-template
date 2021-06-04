@@ -11,6 +11,7 @@ class ComposerStaticInit25016abc4783fa75995260e52fd1f63b
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '35fab96057f1bf5e7aba31a8a6d5fdde' => __DIR__ . '/..' . '/topthink/think-orm/stubs/load_stubs.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '841780ea2e1d6545ea3a253239d59c05' => __DIR__ . '/..' . '/qiniu/php-sdk/src/Qiniu/functions.php',
@@ -162,16 +163,6 @@ class ComposerStaticInit25016abc4783fa75995260e52fd1f63b
         ),
     );
 
-    public static $prefixesPsr0 = array (
-        'P' => 
-        array (
-            'PHPExcel' => 
-            array (
-                0 => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes',
-            ),
-        ),
-    );
-
     public static $fallbackDirsPsr0 = array (
         0 => __DIR__ . '/../..' . '/extend',
     );
@@ -188,7 +179,6 @@ class ComposerStaticInit25016abc4783fa75995260e52fd1f63b
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit25016abc4783fa75995260e52fd1f63b::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit25016abc4783fa75995260e52fd1f63b::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit25016abc4783fa75995260e52fd1f63b::$prefixesPsr0;
             $loader->fallbackDirsPsr0 = ComposerStaticInit25016abc4783fa75995260e52fd1f63b::$fallbackDirsPsr0;
             $loader->classMap = ComposerStaticInit25016abc4783fa75995260e52fd1f63b::$classMap;
 

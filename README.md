@@ -10,7 +10,7 @@ ThinkPHPV6.0版本由[亿速云](https://www.yisu.com/)独家赞助发布
 ## PHP代码部署安装
 
 ~~~
-1、git拉取代码后执行：composer update
+1、git拉取代码后可更新composer执行：composer update
 
 2、创建.env文件，复制.example.env内容
 
