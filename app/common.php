@@ -21,7 +21,7 @@ function getDomainUrl(string $path = '')
 /**
  * @Author: lpc
  * @DateTime: 2021/5/19 18:02
- * @Description: 对象转数组
+ * @Description: 对象转数组,带有private的属性需要实现JsonSerializable接口
  * @param $object
  * @return mixed
  */
