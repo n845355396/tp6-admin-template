@@ -63,7 +63,7 @@ https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
     使用中间件RequestParam来获取请求参数；
     继承了baseController的可直接$data = $this->dataParams;
  
-3、在支付、短信、队列等这些扩展时，在utils下都加了对应的工具类;
+3、在支付、短信、队列等这些扩展使用了工厂模式，在utils下都加了对应的工具类;
    然后在service层去调用对应的工具类;
    这样的目的:
         一是为了保证扩展的独立性;
