@@ -41,8 +41,6 @@ class AliAppPay extends PaymentBase implements PaymentInterface
     public function payment(array $payParams): array
     {
         try {
-
-
             $aop                     = new AopClient ();
             $aop->gatewayUrl         = $this->gatewayUrl;
             $aop->appId              = $this->config['app_id'];

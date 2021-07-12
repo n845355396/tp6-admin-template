@@ -2,7 +2,7 @@
 /*
  * @Author: lpc
  * @DateTime: 2021/5/19 15:54
- * @Description: 第三方支付配置项
+ * @Description: 第三方队列任务配置项
  * ${PARAM_DOC}
  * @return ${TYPE_HINT}
 ${THROWS_DOC}
