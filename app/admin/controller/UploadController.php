@@ -17,7 +17,7 @@ use app\common\utils\Result;
 use think\facade\Route;
 use think\response\Json;
 
-class UploadController extends AuthController
+class UploadController extends BaseController
 {
     /**
      * @Author: lpc
