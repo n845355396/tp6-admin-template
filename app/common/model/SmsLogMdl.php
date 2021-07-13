@@ -15,7 +15,7 @@ use think\facade\Config;
 
 class SmsLogMdl extends BaseModel
 {
-    protected $table = 'sms_log';
+    protected $table = 'sys_sms_log';
     protected $pk = 'sms_id';
 
     const WAITING = 'waiting';//等待发送中

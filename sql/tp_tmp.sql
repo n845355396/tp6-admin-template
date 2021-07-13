@@ -11,43 +11,11 @@
  Target Server Version : 50727
  File Encoding         : 65001
 
- Date: 04/06/2021 10:33:51
+ Date: 13/07/2021 10:00:34
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for sms_log
--- ----------------------------
-DROP TABLE IF EXISTS `sms_log`;
-CREATE TABLE `sms_log`  (
-  `sms_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `type` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '短信类型',
-  `type_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '类型名称',
-  `send_mode` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '短信发送模式',
-  `mobile` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '手机号',
-  `request_data` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '请求数据',
-  `result_data` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL COMMENT '返回数据',
-  `is_retry` int(10) NULL DEFAULT 0 COMMENT '是否已重发',
-  `status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'waiting' COMMENT '短信状态;waiting,success,failed',
-  `create_time` int(11) NOT NULL COMMENT '创建时间',
-  `update_time` int(11) NOT NULL COMMENT '更新时间',
-  `retry_time` int(11) NULL DEFAULT NULL COMMENT '重发时间',
-  PRIMARY KEY (`sms_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '短信发送日志表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sms_log
--- ----------------------------
-INSERT INTO `sms_log` VALUES (21, 'test_sms', '测试短信', 'diy', '17621860940', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '{\"code\":4000,\"msg\":\"balance not sufficient \",\"msgId\":\"162209586316423165441\",\"contNum\":0}', 0, 'failed', 1622095674, 1622095864, NULL);
-INSERT INTO `sms_log` VALUES (22, 'test_sms', '测试短信', 'diy', '17621860940', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '{\"code\":4000,\"msg\":\"balance not sufficient \",\"msgId\":\"162209588427135048961\",\"contNum\":0}', 0, 'failed', 1622095883, 1622095886, NULL);
-INSERT INTO `sms_log` VALUES (23, 'test_sms', '测试短信', 'diy', '15526222933', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '{\"code\":4000,\"msg\":\"balance not sufficient \",\"msgId\":\"162209596189243596801\",\"contNum\":0}', 0, 'failed', 1622095963, 1622095964, NULL);
-INSERT INTO `sms_log` VALUES (24, 'test_sms', '测试短信', 'diy', '15526222933', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '{\"code\":4000,\"msg\":\"balance not sufficient \",\"msgId\":\"162209602270232058881\",\"contNum\":0}', 0, 'failed', 1622096020, 1622096024, NULL);
-INSERT INTO `sms_log` VALUES (25, 'test_sms', '测试短信', 'diy', '15526222933', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '\"\"', 0, 'waiting', 1622096075, 1622096075, NULL);
-INSERT INTO `sms_log` VALUES (26, 'test_sms', '测试短信', 'diy', '15526222933', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '{\"code\":4000,\"msg\":\"balance not sufficient \",\"msgId\":\"162209610430761638401\",\"contNum\":0}', 1, 'failed', 1622096105, 1622096105, 1622170020);
-INSERT INTO `sms_log` VALUES (27, 'test_sms', '测试短信', 'diy', '15526222933', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '{\"code\":4007,\"msg\":\"user disabled\",\"msgId\":\"162217002173015731201\",\"contNum\":0}', 0, 'failed', 1622170020, 1622170020, NULL);
-INSERT INTO `sms_log` VALUES (28, 'test_sms', '测试短信', 'diy', '15526222933', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '{\"code\":4007,\"msg\":\"user disabled\",\"msgId\":\"162218884291190914561\",\"contNum\":0}', 0, 'failed', 1622188843, 1622188843, NULL);
 
 -- ----------------------------
 -- Table structure for sys_admin
@@ -151,7 +119,7 @@ CREATE TABLE `sys_role`  (
   `update_time` int(11) NULL DEFAULT NULL COMMENT '修改时间',
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '平台角色表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '平台角色表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role
@@ -231,6 +199,38 @@ INSERT INTO `sys_role_permission` VALUES (516, 26, '管理员编辑', 'Admin/edi
 INSERT INTO `sys_role_permission` VALUES (517, 26, '上传文件', 'Upload/file', 'upload/file', 1621741427);
 
 -- ----------------------------
+-- Table structure for sys_sms_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_sms_log`;
+CREATE TABLE `sys_sms_log`  (
+  `sms_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `type` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '短信类型',
+  `type_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '类型名称',
+  `send_mode` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '短信发送模式',
+  `mobile` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '手机号',
+  `request_data` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '请求数据',
+  `result_data` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL COMMENT '返回数据',
+  `is_retry` int(10) NULL DEFAULT 0 COMMENT '是否已重发',
+  `status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'waiting' COMMENT '短信状态;waiting,success,failed',
+  `create_time` int(11) NOT NULL COMMENT '创建时间',
+  `update_time` int(11) NOT NULL COMMENT '更新时间',
+  `retry_time` int(11) NULL DEFAULT NULL COMMENT '重发时间',
+  PRIMARY KEY (`sms_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '短信发送日志表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_sms_log
+-- ----------------------------
+INSERT INTO `sys_sms_log` VALUES (21, 'test_sms', '测试短信', 'diy', '17621860940', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '{\"code\":4000,\"msg\":\"balance not sufficient \",\"msgId\":\"162209586316423165441\",\"contNum\":0}', 0, 'failed', 1622095674, 1622095864, NULL);
+INSERT INTO `sys_sms_log` VALUES (22, 'test_sms', '测试短信', 'diy', '17621860940', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '{\"code\":4000,\"msg\":\"balance not sufficient \",\"msgId\":\"162209588427135048961\",\"contNum\":0}', 0, 'failed', 1622095883, 1622095886, NULL);
+INSERT INTO `sys_sms_log` VALUES (23, 'test_sms', '测试短信', 'diy', '15526222933', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '{\"code\":4000,\"msg\":\"balance not sufficient \",\"msgId\":\"162209596189243596801\",\"contNum\":0}', 0, 'failed', 1622095963, 1622095964, NULL);
+INSERT INTO `sys_sms_log` VALUES (24, 'test_sms', '测试短信', 'diy', '15526222933', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '{\"code\":4000,\"msg\":\"balance not sufficient \",\"msgId\":\"162209602270232058881\",\"contNum\":0}', 0, 'failed', 1622096020, 1622096024, NULL);
+INSERT INTO `sys_sms_log` VALUES (25, 'test_sms', '测试短信', 'diy', '15526222933', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '\"\"', 0, 'waiting', 1622096075, 1622096075, NULL);
+INSERT INTO `sys_sms_log` VALUES (26, 'test_sms', '测试短信', 'diy', '15526222933', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '{\"code\":4000,\"msg\":\"balance not sufficient \",\"msgId\":\"162209610430761638401\",\"contNum\":0}', 1, 'failed', 1622096105, 1622096105, 1622170020);
+INSERT INTO `sys_sms_log` VALUES (27, 'test_sms', '测试短信', 'diy', '15526222933', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '{\"code\":4007,\"msg\":\"user disabled\",\"msgId\":\"162217002173015731201\",\"contNum\":0}', 0, 'failed', 1622170020, 1622170020, NULL);
+INSERT INTO `sys_sms_log` VALUES (28, 'test_sms', '测试短信', 'diy', '15526222933', '{\"name\":\"小明\",\"result\":\"小明走队列\"}', '{\"code\":4007,\"msg\":\"user disabled\",\"msgId\":\"162218884291190914561\",\"contNum\":0}', 0, 'failed', 1622188843, 1622188843, NULL);
+
+-- ----------------------------
 -- Table structure for sys_task
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_task`;
@@ -247,7 +247,7 @@ CREATE TABLE `sys_task`  (
   `update_time` int(11) NULL DEFAULT NULL COMMENT '最后一次执行时间',
   PRIMARY KEY (`task_id`) USING BTREE,
   UNIQUE INDEX `idx_unique_code`(`unique_code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3362 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '队列任务表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2362 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '队列任务表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_task
