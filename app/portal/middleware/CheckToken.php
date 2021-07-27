@@ -25,7 +25,7 @@ class CheckToken
         }
         $result = JwtService::checkToken($token);
         if (!$result['status']) {
-            return Result::error($result['msg']);
+            return Result::error($result['msg'],Result::TOKEN_ERROR);
         }
 
         $request->userInfo = $result['data']['data'];

@@ -12,7 +12,7 @@ class Result
     const ERROR = 201;//失败
 
 
-    const TOKEN_ERROR = 401;//失败
+    const TOKEN_ERROR = 401;//token失败,重新登录
     const NO_PERMISSION = 403;//权限不足
     const NO_FOUND = 404;//没发现
 
