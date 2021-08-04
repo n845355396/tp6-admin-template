@@ -4,6 +4,7 @@
 namespace app\portal\exception;
 
 
+use Exception;
 use think\exception\Handle;
 use think\Response;
 use Throwable;
@@ -15,8 +16,26 @@ class PortalExceptionHandle extends Handle
 
     public function report(Throwable $exception): void
     {
-        // 使用内置的方式记录异常日志
-        parent::report($exception);
+        if (!$this->isIgnoreReport($exception)) {
+            // 收集异常数据
+            $data = [
+                'file'    => $exception->getFile(),
+                'line'    => $exception->getLine(),
+                'message' => $this->getMessage($exception),
+                'code'    => $this->getCode($exception),
+            ];
+            $log  = "[{$data['code']}]{$data['message']}[{$data['file']}:{$data['line']}]";
+
+
+            if ($this->app->config->get('log.record_trace')) {
+                $log .= PHP_EOL . $exception->getTraceAsString();
+            }
+
+            try {
+                $this->app->log->record($log, 'error');
+            } catch (Exception $e) {
+            }
+        }
     }
 
 
@@ -27,7 +46,12 @@ class PortalExceptionHandle extends Handle
         } else {
             $httpCode = $this->httpCode;
         }
-        return json(['code' => $httpCode, 'msg' => $e->getMessage()]);
+        $data = [
+            'code'       => $httpCode,
+            'msg'        => $e->getMessage(),
+            'error_file' => $e->getFile() . '：' . $e->getLine() . '行',
+        ];
+        return json($data);
     }
 
 }
