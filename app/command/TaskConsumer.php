@@ -44,7 +44,7 @@ class TaskConsumer extends Command
             }
 
             $logPath = $queuePath . '/think_queue.log';
-            $command = "nohup php think queue:work $queueNames >$logPath 2>>&1 &";
+            $command = "nohup php think queue:work $queueNames >$logPath 2>&1 &";
 
             system($command, $result);
 
@@ -65,7 +65,7 @@ class TaskConsumer extends Command
                 }
 
                 $logPath = $queuePath . '/' . $queueName . '.log';
-                $command = "nohup php think enable_queue $queueName >$logPath 2>>&1 &";
+                $command = "nohup php think enable_queue $queueName >$logPath 2>&1 &";
                 system($command, $result);
 
                 if ($result == 0) {
