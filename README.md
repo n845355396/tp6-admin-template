@@ -12,7 +12,7 @@ ThinkPHPV6.0版本由[亿速云](https://www.yisu.com/)独家赞助发布
 http://121.36.161.35:9528/dashboard
 ~~~
 
-## 赏个馒头啃啃呗~~~
+## 赏个馒头啃啃呗~~~ 
 
 <img src="https://gitee.com/lpccc/tp6-admin-template/raw/master/images/ali.jpg" width="30%">
 
