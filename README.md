@@ -13,10 +13,11 @@ http://121.36.161.35:9528/dashboard
 ~~~
 
 ## 赏个馒头啃啃呗~~~
-~~~
-![RUNOOB 图标](https://img03.sogoucdn.com/app/a/100520146/4fcbdd377ae60b3318ef9108dd2a51eb "RUNOOB")
-![微信吃饭码](https://img02.sogoucdn.com/app/a/100520146/689532ba70ef469837fbcaa63f6c0a06)
-~~~
+
+<img src="https://img03.sogoucdn.com/app/a/100520146/4fcbdd377ae60b3318ef9108dd2a51eb" width="30%">
+
+<img src="https://img02.sogoucdn.com/app/a/100520146/689532ba70ef469837fbcaa63f6c0a06" width="40%">
+
 
 ## PHP代码部署安装
 
