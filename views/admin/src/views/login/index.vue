@@ -117,8 +117,8 @@ export default {
     return {
       codeImgUrl: process.env.VUE_APP_BASE_API + "/login/get_code_img",
       loginForm: {
-        username: "admin",
-        password: "admin123",
+        username: "guest",
+        password: "123456",
         code: "",
       },
       loginRules: {
