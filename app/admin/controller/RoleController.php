@@ -52,7 +52,7 @@ class RoleController extends AuthController
         $data = $this->request->dataParams;
         if (empty($data['role_id'])) {
             return Result::error('角色id不存在！');
-        }
+        }  
         $info = Kernel::single(RoleService::class)->delete($data['role_id']);
         return Result::disposeServiceRes($info);
     }
