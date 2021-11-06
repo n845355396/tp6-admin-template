@@ -119,6 +119,7 @@ class MenuService extends BaseService
                 $where[] = ['menu_id', 'in', $menuIds];
             }
         }
+
         $list = $this->menuMdl->where($where)->order('sort asc,create_time desc')->select()->toArray();
         $list = $this->recursionMenu($list, 0, $notNeedKey);
 

@@ -54,7 +54,7 @@ class RoleController extends AuthController
             return Result::error('角色id不存在！');
         }
         $info = Kernel::single(RoleService::class)->delete($data['role_id']);
-        return Result::succ($info);
+        return Result::disposeServiceRes($info);
     }
 
     public function list(): Json
