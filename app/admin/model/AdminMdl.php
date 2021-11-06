@@ -52,8 +52,8 @@ class AdminMdl extends BaseModel
     }
 
     /**
-     * @Author: lpc
-     * @DateTime: 2021/5/19 12:06
+     * @Author     : lpc
+     * @DateTime   : 2021/5/19 12:06
      * @Description: 修改管理员密码
      * @param $adminId
      * @param $password
@@ -67,8 +67,8 @@ class AdminMdl extends BaseModel
     }
 
     /**
-     * @Author: lpc
-     * @DateTime: 2021/5/19 12:04
+     * @Author     : lpc
+     * @DateTime   : 2021/5/19 12:04
      * @Description: 禁用/启用管理员
      * @param $adminId
      * @param $status
@@ -81,21 +81,22 @@ class AdminMdl extends BaseModel
     }
 
     /**
-     * @Author: lpc
-     * @DateTime: 2021/5/19 12:00
+     * @Author     : lpc
+     * @DateTime   : 2021/5/19 12:00
      * @Description: 删除管理员
      * @param $adminId
      * @return array
      */
     public function delAdmin($adminId): array
     {
-        $res = $this->where(['admin_id' => $adminId])->delete();
-        return $res ? Result::serviceSucc() : Result::serviceError('删除失败！');
+        $res1 = $this->where(['admin_id' => $adminId])->delete();
+        $res2 = (new AdminRoleMdl())->where(['admin_id' => $adminId])->delete();
+        return ($res1 && $res2) ? Result::serviceSucc() : Result::serviceError('删除失败！');
     }
 
     /**
-     * @Author: lpc
-     * @DateTime: 2021/5/19 12:01
+     * @Author     : lpc
+     * @DateTime   : 2021/5/19 12:01
      * @Description: 获取管理员信息
      * @param $adminId
      * @return array
@@ -114,8 +115,8 @@ class AdminMdl extends BaseModel
     }
 
     /**
-     * @Author: lpc
-     * @DateTime: 2021/5/17 15:40
+     * @Author     : lpc
+     * @DateTime   : 2021/5/17 15:40
      * @Description: 保存管理员用户
      * @param $data
      * @return array
