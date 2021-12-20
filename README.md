@@ -12,6 +12,12 @@ ThinkPHPV6.0版本由[亿速云](https://www.yisu.com/)独家赞助发布
 http://121.36.161.35:9528/dashboard
 ~~~
 
+## 代码管理平台
+~~~
+gitHub：https://github.com/n845355396/tp6-admin-template
+码云：https://gitee.com/lpccc/tp6-admin-template
+~~~
+
 [comment]: <> (## 赏个馒头啃啃呗~~~ )
 
 [comment]: <> (<img src="https://gitee.com/lpccc/tp6-admin-template/raw/master/images/ali.jpg" width="30%">)
@@ -161,6 +167,11 @@ https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
     
     导出支持返回下载链接、直接输出文件流
     导入支持url、本地文件读取
+    
+8、稍微尝试了下Elasticsearch搜索：【尝试...】
+    提供工具类：ElasticsearchUtil.php
+    
+    就封装个基本的东西，具体查询数组还是要根据实际业务逻辑自己编写
 
 ..........
 ~~~

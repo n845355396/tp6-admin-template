@@ -1,247 +1,296 @@
-<?php return array (
-  'root' => 
-  array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
-    'aliases' => 
-    array (
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'type' => 'project',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => 'e9f2bcaffe0ce2bfaed19085adb108603c6a188a',
+        'name' => 'topthink/think',
+        'dev' => true,
     ),
-    'reference' => 'e2fb487472eb5cc2e7235eacb2884d5916bd818d',
-    'name' => 'topthink/think',
-  ),
-  'versions' => 
-  array (
-    'firebase/php-jwt' => 
-    array (
-      'pretty_version' => 'v5.2.1',
-      'version' => '5.2.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'f42c9110abe98dd6cfe9053c49bc86acc70b2d23',
+    'versions' => array(
+        'elasticsearch/elasticsearch' => array(
+            'pretty_version' => 'v7.11.0',
+            'version' => '7.11.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../elasticsearch/elasticsearch',
+            'aliases' => array(),
+            'reference' => '277cd5e182827c59c23e146a836a30470c0f879d',
+            'dev_requirement' => false,
+        ),
+        'ezimuel/guzzlestreams' => array(
+            'pretty_version' => '3.0.1',
+            'version' => '3.0.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ezimuel/guzzlestreams',
+            'aliases' => array(),
+            'reference' => 'abe3791d231167f14eb80d413420d1eab91163a8',
+            'dev_requirement' => false,
+        ),
+        'ezimuel/ringphp' => array(
+            'pretty_version' => '1.2.0',
+            'version' => '1.2.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ezimuel/ringphp',
+            'aliases' => array(),
+            'reference' => '92b8161404ab1ad84059ebed41d9f757e897ce74',
+            'dev_requirement' => false,
+        ),
+        'firebase/php-jwt' => array(
+            'pretty_version' => 'v5.3.0',
+            'version' => '5.3.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../firebase/php-jwt',
+            'aliases' => array(),
+            'reference' => '3c2d70f2e64e2922345e89f2ceae47d2463faae1',
+            'dev_requirement' => false,
+        ),
+        'guzzlehttp/ringphp' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => '1.2.0',
+            ),
+        ),
+        'league/flysystem' => array(
+            'pretty_version' => '1.1.3',
+            'version' => '1.1.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../league/flysystem',
+            'aliases' => array(),
+            'reference' => '9be3b16c877d477357c015cec057548cf9b2a14a',
+            'dev_requirement' => false,
+        ),
+        'league/flysystem-cached-adapter' => array(
+            'pretty_version' => '1.1.0',
+            'version' => '1.1.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../league/flysystem-cached-adapter',
+            'aliases' => array(),
+            'reference' => 'd1925efb2207ac4be3ad0c40b8277175f99ffaff',
+            'dev_requirement' => false,
+        ),
+        'league/mime-type-detection' => array(
+            'pretty_version' => '1.7.0',
+            'version' => '1.7.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../league/mime-type-detection',
+            'aliases' => array(),
+            'reference' => '3b9dff8aaf7323590c1d2e443db701eb1f9aa0d3',
+            'dev_requirement' => false,
+        ),
+        'nesbot/carbon' => array(
+            'pretty_version' => '2.48.1',
+            'version' => '2.48.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../nesbot/carbon',
+            'aliases' => array(),
+            'reference' => '8d1f50f1436fb4b05e7127360483dd9c6e73da16',
+            'dev_requirement' => false,
+        ),
+        'psr/cache' => array(
+            'pretty_version' => '1.0.1',
+            'version' => '1.0.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/cache',
+            'aliases' => array(),
+            'reference' => 'd11b50ad223250cf17b86e38383413f5a6764bf8',
+            'dev_requirement' => false,
+        ),
+        'psr/container' => array(
+            'pretty_version' => '1.1.1',
+            'version' => '1.1.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/container',
+            'aliases' => array(),
+            'reference' => '8622567409010282b7aeebe4bb841fe98b58dcaf',
+            'dev_requirement' => false,
+        ),
+        'psr/log' => array(
+            'pretty_version' => '1.1.4',
+            'version' => '1.1.4.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/log',
+            'aliases' => array(),
+            'reference' => 'd49695b909c3b7628b6289db5479a1c204601f11',
+            'dev_requirement' => false,
+        ),
+        'psr/simple-cache' => array(
+            'pretty_version' => '1.0.1',
+            'version' => '1.0.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/simple-cache',
+            'aliases' => array(),
+            'reference' => '408d5eafb83c57f6365a3ca330ff23aa4a5fa39b',
+            'dev_requirement' => false,
+        ),
+        'qiniu/php-sdk' => array(
+            'pretty_version' => 'v7.3.0',
+            'version' => '7.3.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../qiniu/php-sdk',
+            'aliases' => array(),
+            'reference' => '0a461e13b09545b23df361843c6a65fdd3a26426',
+            'dev_requirement' => false,
+        ),
+        'react/promise' => array(
+            'pretty_version' => 'v2.8.0',
+            'version' => '2.8.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../react/promise',
+            'aliases' => array(),
+            'reference' => 'f3cff96a19736714524ca0dd1d4130de73dbbbc4',
+            'dev_requirement' => false,
+        ),
+        'symfony/deprecation-contracts' => array(
+            'pretty_version' => 'v2.4.0',
+            'version' => '2.4.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/deprecation-contracts',
+            'aliases' => array(),
+            'reference' => '5f38c8804a9e97d23e0c8d63341088cd8a22d627',
+            'dev_requirement' => false,
+        ),
+        'symfony/polyfill-mbstring' => array(
+            'pretty_version' => 'v1.23.0',
+            'version' => '1.23.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/polyfill-mbstring',
+            'aliases' => array(),
+            'reference' => '2df51500adbaebdc4c38dea4c89a2e131c45c8a1',
+            'dev_requirement' => false,
+        ),
+        'symfony/polyfill-php72' => array(
+            'pretty_version' => 'v1.23.0',
+            'version' => '1.23.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/polyfill-php72',
+            'aliases' => array(),
+            'reference' => '9a142215a36a3888e30d0a9eeea9766764e96976',
+            'dev_requirement' => true,
+        ),
+        'symfony/polyfill-php80' => array(
+            'pretty_version' => 'v1.23.0',
+            'version' => '1.23.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/polyfill-php80',
+            'aliases' => array(),
+            'reference' => 'eca0bf41ed421bed1b57c4958bab16aa86b757d0',
+            'dev_requirement' => false,
+        ),
+        'symfony/process' => array(
+            'pretty_version' => 'v4.4.25',
+            'version' => '4.4.25.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/process',
+            'aliases' => array(),
+            'reference' => 'cd61e6dd273975c6625316de9d141ebd197f93c9',
+            'dev_requirement' => false,
+        ),
+        'symfony/translation' => array(
+            'pretty_version' => 'v5.3.0',
+            'version' => '5.3.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/translation',
+            'aliases' => array(),
+            'reference' => '251de0d921c42ef0a81494d8f37405421deefdf6',
+            'dev_requirement' => false,
+        ),
+        'symfony/translation-contracts' => array(
+            'pretty_version' => 'v2.4.0',
+            'version' => '2.4.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/translation-contracts',
+            'aliases' => array(),
+            'reference' => '95c812666f3e91db75385749fe219c5e494c7f95',
+            'dev_requirement' => false,
+        ),
+        'symfony/translation-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '2.3',
+            ),
+        ),
+        'symfony/var-dumper' => array(
+            'pretty_version' => 'v4.4.25',
+            'version' => '4.4.25.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/var-dumper',
+            'aliases' => array(),
+            'reference' => '31ea689a8e7d2410016b0d25fc15a1ba05a6e2e0',
+            'dev_requirement' => true,
+        ),
+        'topthink/framework' => array(
+            'pretty_version' => 'v6.0.8',
+            'version' => '6.0.8.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../topthink/framework',
+            'aliases' => array(),
+            'reference' => '4789343672aef06d571d556da369c0e156609bce',
+            'dev_requirement' => false,
+        ),
+        'topthink/think' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => 'e9f2bcaffe0ce2bfaed19085adb108603c6a188a',
+            'dev_requirement' => false,
+        ),
+        'topthink/think-captcha' => array(
+            'pretty_version' => 'v3.0.3',
+            'version' => '3.0.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../topthink/think-captcha',
+            'aliases' => array(),
+            'reference' => '1eef3717c1bcf4f5bbe2d1a1c704011d330a8b55',
+            'dev_requirement' => false,
+        ),
+        'topthink/think-helper' => array(
+            'pretty_version' => 'v3.1.4',
+            'version' => '3.1.4.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../topthink/think-helper',
+            'aliases' => array(),
+            'reference' => 'c28d37743bda4a0455286ca85b17b5791d626e10',
+            'dev_requirement' => false,
+        ),
+        'topthink/think-multi-app' => array(
+            'pretty_version' => 'v1.0.14',
+            'version' => '1.0.14.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../topthink/think-multi-app',
+            'aliases' => array(),
+            'reference' => 'ccaad7c2d33f42cb1cc2a78d6610aaec02cea4c3',
+            'dev_requirement' => false,
+        ),
+        'topthink/think-orm' => array(
+            'pretty_version' => 'v2.0.40',
+            'version' => '2.0.40.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../topthink/think-orm',
+            'aliases' => array(),
+            'reference' => '1119d979b850849f3725856460cf108eec1c3eb8',
+            'dev_requirement' => false,
+        ),
+        'topthink/think-queue' => array(
+            'pretty_version' => 'v3.0.5',
+            'version' => '3.0.5.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../topthink/think-queue',
+            'aliases' => array(),
+            'reference' => '7bac4d76461f0508ab306e9118f59773ffdeb49a',
+            'dev_requirement' => false,
+        ),
+        'topthink/think-trace' => array(
+            'pretty_version' => 'v1.4',
+            'version' => '1.4.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../topthink/think-trace',
+            'aliases' => array(),
+            'reference' => '9a9fa8f767b6c66c5a133ad21ca1bc96ad329444',
+            'dev_requirement' => true,
+        ),
     ),
-    'league/flysystem' => 
-    array (
-      'pretty_version' => '1.1.3',
-      'version' => '1.1.3.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '9be3b16c877d477357c015cec057548cf9b2a14a',
-    ),
-    'league/flysystem-cached-adapter' => 
-    array (
-      'pretty_version' => '1.1.0',
-      'version' => '1.1.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'd1925efb2207ac4be3ad0c40b8277175f99ffaff',
-    ),
-    'league/mime-type-detection' => 
-    array (
-      'pretty_version' => '1.7.0',
-      'version' => '1.7.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '3b9dff8aaf7323590c1d2e443db701eb1f9aa0d3',
-    ),
-    'nesbot/carbon' => 
-    array (
-      'pretty_version' => '2.48.0',
-      'version' => '2.48.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'd3c447f21072766cddec3522f9468a5849a76147',
-    ),
-    'psr/cache' => 
-    array (
-      'pretty_version' => '1.0.1',
-      'version' => '1.0.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'd11b50ad223250cf17b86e38383413f5a6764bf8',
-    ),
-    'psr/container' => 
-    array (
-      'pretty_version' => '1.1.1',
-      'version' => '1.1.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '8622567409010282b7aeebe4bb841fe98b58dcaf',
-    ),
-    'psr/log' => 
-    array (
-      'pretty_version' => '1.1.4',
-      'version' => '1.1.4.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'd49695b909c3b7628b6289db5479a1c204601f11',
-    ),
-    'psr/simple-cache' => 
-    array (
-      'pretty_version' => '1.0.1',
-      'version' => '1.0.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '408d5eafb83c57f6365a3ca330ff23aa4a5fa39b',
-    ),
-    'qiniu/php-sdk' => 
-    array (
-      'pretty_version' => 'v7.3.0',
-      'version' => '7.3.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '0a461e13b09545b23df361843c6a65fdd3a26426',
-    ),
-    'symfony/polyfill-mbstring' => 
-    array (
-      'pretty_version' => 'v1.22.1',
-      'version' => '1.22.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '5232de97ee3b75b0360528dae24e73db49566ab1',
-    ),
-    'symfony/polyfill-php72' => 
-    array (
-      'pretty_version' => 'v1.22.1',
-      'version' => '1.22.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'cc6e6f9b39fe8075b3dabfbaf5b5f645ae1340c9',
-    ),
-    'symfony/polyfill-php80' => 
-    array (
-      'pretty_version' => 'v1.22.1',
-      'version' => '1.22.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'dc3063ba22c2a1fd2f45ed856374d79114998f91',
-    ),
-    'symfony/process' => 
-    array (
-      'pretty_version' => 'v4.4.22',
-      'version' => '4.4.22.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'f5481b22729d465acb1cea3455fc04ce84b0148b',
-    ),
-    'symfony/translation' => 
-    array (
-      'pretty_version' => 'v5.2.9',
-      'version' => '5.2.9.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '61af68dba333e2d376a325a29c2a3f2a605b4876',
-    ),
-    'symfony/translation-contracts' => 
-    array (
-      'pretty_version' => 'v2.4.0',
-      'version' => '2.4.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '95c812666f3e91db75385749fe219c5e494c7f95',
-    ),
-    'symfony/translation-implementation' => 
-    array (
-      'provided' => 
-      array (
-        0 => '2.3',
-      ),
-    ),
-    'symfony/var-dumper' => 
-    array (
-      'pretty_version' => 'v4.4.22',
-      'version' => '4.4.22.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'c194bcedde6295f3ec3e9eba1f5d484ea97c41a7',
-    ),
-    'topthink/framework' => 
-    array (
-      'pretty_version' => 'v6.0.8',
-      'version' => '6.0.8.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '4789343672aef06d571d556da369c0e156609bce',
-    ),
-    'topthink/think' => 
-    array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'e2fb487472eb5cc2e7235eacb2884d5916bd818d',
-    ),
-    'topthink/think-captcha' => 
-    array (
-      'pretty_version' => 'v3.0.3',
-      'version' => '3.0.3.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '1eef3717c1bcf4f5bbe2d1a1c704011d330a8b55',
-    ),
-    'topthink/think-helper' => 
-    array (
-      'pretty_version' => 'v3.1.4',
-      'version' => '3.1.4.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'c28d37743bda4a0455286ca85b17b5791d626e10',
-    ),
-    'topthink/think-multi-app' => 
-    array (
-      'pretty_version' => 'v1.0.14',
-      'version' => '1.0.14.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'ccaad7c2d33f42cb1cc2a78d6610aaec02cea4c3',
-    ),
-    'topthink/think-orm' => 
-    array (
-      'pretty_version' => 'v2.0.40',
-      'version' => '2.0.40.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '1119d979b850849f3725856460cf108eec1c3eb8',
-    ),
-    'topthink/think-queue' => 
-    array (
-      'pretty_version' => 'v3.0.5',
-      'version' => '3.0.5.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '7bac4d76461f0508ab306e9118f59773ffdeb49a',
-    ),
-    'topthink/think-trace' => 
-    array (
-      'pretty_version' => 'v1.4',
-      'version' => '1.4.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '9a9fa8f767b6c66c5a133ad21ca1bc96ad329444',
-    ),
-  ),
 );

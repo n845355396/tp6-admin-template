@@ -77,6 +77,9 @@ Route::group('upload', function () {
     Route::post('/file', 'Upload/file')
         ->name("上传文件")->append(['is_permission' => true]);
 
+    Route::post('/test_es', 'Upload/testEs')
+        ->name("测试es搜索")->append(['is_permission' => true]);
+
 })->name("文件管理");
 
 
