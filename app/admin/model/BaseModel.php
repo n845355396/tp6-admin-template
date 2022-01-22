@@ -10,8 +10,6 @@
 
 namespace app\admin\model;
 
-
-use think\Model;
 use app\common\model\BaseModel as CommonBaseModel;
 
 class BaseModel extends CommonBaseModel

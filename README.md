@@ -8,11 +8,13 @@ ThinkPHP 6.0
 ThinkPHPV6.0版本由[亿速云](https://www.yisu.com/)独家赞助发布
 
 ## 后台管理页面
+
 ~~~
 http://121.36.161.35:9528/dashboard
 ~~~
 
 ## 代码管理平台
+
 ~~~
 gitHub：https://github.com/n845355396/tp6-admin-template
 码云：https://gitee.com/lpccc/tp6-admin-template
@@ -23,7 +25,6 @@ gitHub：https://github.com/n845355396/tp6-admin-template
 [comment]: <> (<img src="https://gitee.com/lpccc/tp6-admin-template/raw/master/images/ali.jpg" width="30%">)
 
 [comment]: <> (<img src="https://gitee.com/lpccc/tp6-admin-template/raw/master/images/wx.jpg" width="40%">)
-
 
 ## PHP代码部署安装
 
@@ -168,11 +169,30 @@ https://docs.apipost.cn/preview/787d44633670a7e4/484894853cd84ede#001
     导出支持返回下载链接、直接输出文件流
     导入支持url、本地文件读取
     
-8、稍微尝试了下Elasticsearch搜索：【尝试...】
+8、稍微尝试了下Elasticsearch搜索：【2021-12-20】【尝试...】
     提供工具类：ElasticsearchUtil.php
     
     就封装个基本的东西，具体查询数组还是要根据实际业务逻辑自己编写
 
+9、业务级日志信息记录：【2022-1-22】【已完成】
+    使用场景：
+        在平台管理中，我们有时可能会遇到这样的需求，比如对一个商品操作，我们要记录下一条记录，内容是谁在什么时间点修改了什么什么商品，修改了商品那些信息(名称、价格、品牌等)。
+    实现思路：
+        因为这种日志记录是跟业务关联的，所以我们经常提到的AOP不适用于此场景，我的思路是先创建一个实体类，这个实体类中声明的属性字段都是要记录更改的字段（也就是我们不可能什么字段都记，你觉得哪些字段重要要记录下来，就在这个实体类中声明），然后在保存数据前去new下实体类把里面属性填充上，取名oldVo，保存数据成功后我们再去new下这个实体类填充属性，取名newVo。之后去对比这两个bean对象，有差异的就记录。
+    代码写法：
+        基于以上逻辑，也可不使用我下面的方法，只要符合以上思路就行。
+        通过给model层实现ModelLogInterface接口，接口里有目前有两个方法要实现：
+            getFieldChangeData：获取业务级日志记录所需实体数据
+            saveBusinessLog：记录业务级日志
+        我在AdminMdl中使用了一下，之前的model层跟service层有些混乱，记录可放在service中更好点。
+        $oldVo = $this->getFieldChangeData($adminId);
+        #这中间是处理数据，保存数据
+        $newVo = $this->getFieldChangeData($adminId);
+        $this->setLogRecordType(self::LOG_RECORD_TYPE_deleted);
+        ModelFiledLogService::recordLog($this, $oldVo, $newVo);
+        通过ModelFiledLogService中的recordLog对比处理，然后返回给本model实现的saveBusinessLog方法保存数据
+        
+        以上是记录日志的大致方法，其中一些关于getFieldChangeData方法只能需要配置的数据可以看看AdminMdl中写法。
 ..........
 ~~~
 

@@ -11,6 +11,9 @@
 namespace app\admin\model;
 
 
+use app\admin\logEntity\AdminUserEntity;
+use app\admin\logEntity\BaseLogEntity;
+use app\common\service\ModelFiledLogService;
 use app\common\utils\Result;
 use app\common\utils\UserPassword;
 use Exception;
@@ -20,7 +23,7 @@ use think\db\exception\ModelNotFoundException;
 use think\facade\Db;
 use think\model\relation\HasOneThrough;
 
-class AdminMdl extends BaseModel
+class AdminMdl extends BaseModel implements ModelLogInterface
 {
     protected $table = 'sys_admin';
     protected $pk = 'admin_id';
@@ -86,11 +89,18 @@ class AdminMdl extends BaseModel
      * @Description: 删除管理员
      * @param $adminId
      * @return array
+     * @throws DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
      */
     public function delAdmin($adminId): array
     {
+        $oldVo = $this->getFieldChangeData($adminId);
         $res1 = $this->where(['admin_id' => $adminId])->delete();
         $res2 = (new AdminRoleMdl())->where(['admin_id' => $adminId])->delete();
+
+        $this->setLogRecordType(self::LOG_RECORD_TYPE_deleted);
+        ModelFiledLogService::recordLog($this, $oldVo, $oldVo);
         return ($res1 && $res2) ? Result::serviceSucc() : Result::serviceError('删除失败！');
     }
 
@@ -107,7 +117,7 @@ class AdminMdl extends BaseModel
     public function infoAdmin($adminId): array
     {
         $field = 'admin_id,is_super,status,avatar,login_name,nickname,mobile,update_time,create_time';
-        $info  = $this->field($field)->append(['role'])->find($adminId);
+        $info = $this->field($field)->append(['role'])->find($adminId);
         if (is_null($info)) {
             return [];
         }
@@ -124,6 +134,7 @@ class AdminMdl extends BaseModel
      */
     public function saveAdminUser(&$data): array
     {
+        $oldVo = $this->getFieldChangeData(@$data['admin_id']);
         // 启动事务
         Db::startTrans();
         try {
@@ -134,17 +145,21 @@ class AdminMdl extends BaseModel
             }
             if (empty($data['admin_id'])) {
                 $data['update_time'] = $data['create_time'] = time();
-                $id                  = $this->strict(false)->insertGetId($data);
-                $data['admin_id']    = $id;
+                $id = $this->strict(false)->insertGetId($data);
+                $data['admin_id'] = $id;
             } else {
                 $data['update_time'] = time();
                 $this->update($data);
+                $this->setLogRecordType(self::LOG_RECORD_TYPE_UPDATED);
             }
 
             //给管理员保存角色
             $adminRoleMdl = new AdminRoleMdl();
             $adminRoleMdl->where(['admin_id' => $data['admin_id']])->delete();
             $adminRoleMdl->insert(['admin_id' => $data['admin_id'], 'role_id' => $data['role_id']]);
+
+            $newVo = $this->getFieldChangeData($data['admin_id']);
+            ModelFiledLogService::recordLog($this, $oldVo, $newVo);
 
             // 提交事务
             Db::commit();
@@ -155,5 +170,61 @@ class AdminMdl extends BaseModel
             Db::rollback();
             throw new Exception($e->getMessage());
         }
+    }
+
+    /**
+     * Notes: 获取业务级日志记录所需实体数据
+     * Date: 2022/1/21 15:28
+     * @param $id
+     * @return AdminUserEntity
+     * @throws DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
+     * @author: lpc
+     */
+    public function getFieldChangeData($id): AdminUserEntity
+    {
+        $vo = new AdminUserEntity();
+        $adminInfo = $this->infoAdmin($id);
+        if (!$adminInfo) {
+            return $vo;
+        }
+        $vo->setAvatar($adminInfo['avatar']);
+        $vo->setLoginName($adminInfo['login_name']);
+        $vo->setRole($adminInfo['role']['role_name'] ?? '');
+
+        $optionalFieldMap = [
+            'id' => $id,
+            'name' => $adminInfo['login_name']
+        ];
+
+        $vo->setOptionalFieldMap($optionalFieldMap);
+
+        return $vo;
+    }
+
+    /**
+     * Notes: 记录业务级日志
+     * Date: 2022/1/22 11:05
+     * @param $oldVo
+     * @param $content
+     * @return void
+     * @author: lpc
+     */
+    public function saveBusinessLog($oldVo, $content)
+    {
+        $request = app('request');
+
+        $optionalFieldMap = $oldVo->getOptionalFieldMap();
+
+        $adminLogMdl = new AdminLogMdl();
+        $adminLogMdl['type'] = $this->getLogRecordType();
+        $adminLogMdl['admin_id'] = $optionalFieldMap['id'] ?? '';
+        $adminLogMdl['admin_name'] = $optionalFieldMap['name'] ?? '';
+        $adminLogMdl['op_user_id'] = $request->adminInfo->admin_id;
+        $adminLogMdl['op_user_name'] = $request->adminInfo->login_name;
+        $adminLogMdl['content'] = $content;
+        $adminLogMdl['created_time'] = date('Y-m-d H:i:s');
+        $adminLogMdl->save();
     }
 }

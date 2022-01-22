@@ -15,6 +15,12 @@ use think\Model;
 
 class BaseModel extends Model
 {
+    const LOG_RECORD_TYPE_CREATED = 'created';
+    const LOG_RECORD_TYPE_UPDATED = 'updated';
+    const LOG_RECORD_TYPE_deleted = 'deleted';
+
+    private string $logRecordType = self::LOG_RECORD_TYPE_CREATED;
+
     public function getCreateTimeAttr($value)
     {
         if (!$value) {
@@ -79,6 +85,22 @@ class BaseModel extends Model
             }
         }
         return $where;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogRecordType(): string
+    {
+        return $this->logRecordType;
+    }
+
+    /**
+     * @param string $logRecordType
+     */
+    public function setLogRecordType(string $logRecordType): void
+    {
+        $this->logRecordType = $logRecordType;
     }
 
 }
