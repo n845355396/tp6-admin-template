@@ -29,8 +29,8 @@ class CheckToken
         }
 
         $request->adminInfo = $result['data']['data'];
-        $request->adminId   = $result['data']['data']->admin_id;
-        $password           = $result['data']['data']->password;
+        $request->adminId = $result['data']['data']->admin_id;
+        $password = $result['data']['data']->password;
 
         //lpc 这里我们来判断下用户密码是否被修改，修改后就算token正确都要重新登录
         $isAs = Kernel::single(AdminService::class)->checkPass($request->adminId, $password);
@@ -40,8 +40,8 @@ class CheckToken
 
         //lpc 拿到了登录id，开始做功能权限判断
         $curRouteObjArr = Route::getRule(request()->rule()->getRule());
-        $curRouteObj    = reset($curRouteObjArr);
-        $appendData     = $curRouteObj->getOption('append');
+        $curRouteObj = reset($curRouteObjArr);
+        $appendData = $curRouteObj->getOption('append');
 
         if ($appendData != null && !empty($appendData['is_permission']) && $appendData['is_permission']) {
             $has = Kernel::single(PermissionService::class)

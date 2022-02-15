@@ -7,6 +7,13 @@ ThinkPHP 6.0
 
 ThinkPHPV6.0版本由[亿速云](https://www.yisu.com/)独家赞助发布
 
+## 代码管理仓库
+
+~~~
+GitHub地址：https://github.com/n845355396/tp6-admin-template
+码云地址(最新代码)：https://gitee.com/lpccc/tp6-admin-template
+~~~
+
 ## 后台管理页面
 
 ~~~
