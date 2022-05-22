@@ -56,6 +56,16 @@ trait SoftDelete
     }
 
     /**
+     * 查询软删除数据
+     * @access public
+     * @return Query
+     */
+    public function queryWithTrashed(): Query
+    {
+        return $this->withTrashedData(true)->db();
+    }
+
+    /**
      * 是否包含软删除数据
      * @access protected
      * @param  bool $withTrashed 是否包含软删除数据
@@ -84,6 +94,23 @@ trait SoftDelete
         }
 
         return $model->db();
+    }
+
+    /**
+     * 只查询软删除数据
+     * @access public
+     * @return Query
+     */
+    public function queryOnlyTrashed(): Query
+    {
+        $field = $this->getDeleteTimeField(true);
+
+        if ($field) {
+            return $this->db()
+                ->useSoftDelete($field, $this->getWithTrashedExp());
+        }
+
+        return $this->db();
     }
 
     /**
@@ -151,8 +178,16 @@ trait SoftDelete
      */
     public static function destroy($data, bool $force = false): bool
     {
-        // 包含软删除数据
-        $query = (new static())->withTrashedData(true)->db(false);
+        // 传入空值（包括空字符串和空数组）的时候不会做任何的数据删除操作，但传入0则是有效的
+        if (empty($data) && 0 !== $data) {
+            return false;
+        }
+        // 仅当强制删除时包含软删除数据
+        $model = (new static());
+        if ($force) {
+            $model->withTrashedData(true);
+        }
+        $query = $model->db(false);
 
         if (is_array($data) && key($data) !== 0) {
             $query->where($data);

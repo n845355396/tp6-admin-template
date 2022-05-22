@@ -25,7 +25,7 @@ class ExcelUtil
      * @return mixed
      * @throws Exception
      */
-    public static function getExcelObj()
+    private static function getExcelObj()
     {
         try {
             $excelConf = Config::get("excel");

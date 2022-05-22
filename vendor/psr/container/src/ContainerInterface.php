@@ -19,7 +19,7 @@ interface ContainerInterface
      *
      * @return mixed Entry.
      */
-    public function get( $id);
+    public function get(string $id);
 
     /**
      * Returns true if the container can return an entry for the given identifier.
@@ -32,5 +32,5 @@ interface ContainerInterface
      *
      * @return bool
      */
-    public function has( $id);
+    public function has(string $id);
 }

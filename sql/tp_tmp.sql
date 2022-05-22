@@ -11,7 +11,7 @@
  Target Server Version : 50727
  File Encoding         : 65001
 
- Date: 13/07/2021 10:00:34
+ Date: 22/05/2022 14:14:45
 */
 
 SET NAMES utf8mb4;
@@ -39,12 +39,8 @@ CREATE TABLE `sys_admin`  (
 -- ----------------------------
 -- Records of sys_admin
 -- ----------------------------
-INSERT INTO `sys_admin` VALUES (1, 1, 0, 'http://tp6-admin-template.local/storage/upload/img/20210523/e2837ed6daf3cebfab6c67a04c919f9c.gif', 'admin', 'admin', NULL, '$2y$10$MlzIJufYGonjzfThknj2Ze/GTIeA5IBuob1zI25xrd1MkNdOWzg4W', 1621781765, 1621239214);
-INSERT INTO `sys_admin` VALUES (4, 0, 0, 'http://tp6-admin-template.local/storage/upload/img/20210522/49c927a0848b9991cfe39a6d3ec88925.jpg', 'admin254', 'admin254', NULL, '$2y$10$NPl2oVsmJPGyrIGTARaRQurELPaFyECHU5dx7/MmqVU8dfUjqqsLm', 1621617968, 1621312254);
-INSERT INTO `sys_admin` VALUES (13, 0, 0, NULL, 'admin2', 'admin2', NULL, '$2y$10$S6MqE8L7evXN.agc5i2Tb.WMAI4.t4SlRdTQS2Oukr8DvLIw3Kzi.', 1621390490, 1621390490);
-INSERT INTO `sys_admin` VALUES (14, 0, 1, 'http://tp6-admin-template.local/storage/upload/img/20210522/db1a6afe57f3f6f090bb5a3b80c0478c.jpg', 'sss', 'sss', NULL, '$2y$10$KCU1hfj2GyFfp9go5/QYKedjUBFKfQu3RBvkS1eePeMoSC0Pf8sNu', 1621616974, 1621616823);
-INSERT INTO `sys_admin` VALUES (15, 0, 0, 'http://tp6-admin-template.local/storage/upload/img/20210522/540b6a3cab4b3bbf69ba3ad22e03c770.jpg', 'gggg', 'gggg', NULL, '$2y$10$ON0QL/pYpuzGZ6XnlP6NFuEtl8Eh/vSM3r61CTtFYxn25RzARavMC', 1621618003, 1621618003);
-INSERT INTO `sys_admin` VALUES (17, 0, 0, 'http://tp6-admin-template.local/storage/upload/img/20210524/222bab5d1978a01bbf51afbb8750b789.png', 'admin12312', 'admin12312', NULL, '$2y$10$4952OStHKfDtIJSyw.OEdugCw69BECcUdp6En64Yt9WmDmndagWfG', 1621819903, 1621670325);
+INSERT INTO `sys_admin` VALUES (1, 1, 0, 'http://121.36.161.35:9527/storage/upload/img/20220522/987768a754bf6006f623b94c52f436dd.png', 'admin', 'admin', NULL, '$2y$10$MlzIJufYGonjzfThknj2Ze/GTIeA5IBuob1zI25xrd1MkNdOWzg4W', 1653199667, 1621239214);
+INSERT INTO `sys_admin` VALUES (13, 0, 0, 'http://121.36.161.35:9527/storage/upload/img/20220522/638eb35d1c789308e3375d779fff58f6.png', 'guest', 'guest', NULL, '$2y$10$DV4WQJPSpX44XbDuBIY5o..PYh/nZJhbKMsZ0wJVff3lLturTPNP2', 1653199650, 1621390490);
 
 -- ----------------------------
 -- Table structure for sys_admin_role
@@ -61,16 +57,11 @@ CREATE TABLE `sys_admin_role`  (
 -- ----------------------------
 INSERT INTO `sys_admin_role` VALUES (1, 1);
 INSERT INTO `sys_admin_role` VALUES (3, 4);
-INSERT INTO `sys_admin_role` VALUES (4, 4);
 INSERT INTO `sys_admin_role` VALUES (5, 4);
 INSERT INTO `sys_admin_role` VALUES (6, 4);
 INSERT INTO `sys_admin_role` VALUES (8, 4);
 INSERT INTO `sys_admin_role` VALUES (11, 1111);
 INSERT INTO `sys_admin_role` VALUES (13, 4);
-INSERT INTO `sys_admin_role` VALUES (14, 26);
-INSERT INTO `sys_admin_role` VALUES (15, 4);
-INSERT INTO `sys_admin_role` VALUES (16, 26);
-INSERT INTO `sys_admin_role` VALUES (17, 26);
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -125,8 +116,7 @@ CREATE TABLE `sys_role`  (
 -- Records of sys_role
 -- ----------------------------
 INSERT INTO `sys_role` VALUES (1, 1, '超级管理员', 100, 0, 1, 1621239214, 1, 1621239214, NULL);
-INSERT INTO `sys_role` VALUES (4, 0, '游客', 4, 0, 1, 1621239214, 1, 1621695045, NULL);
-INSERT INTO `sys_role` VALUES (26, 0, '小角色', 1, 0, 1, 1621404556, 1, 1621741427, '我是小备注');
+INSERT INTO `sys_role` VALUES (4, 0, '游客', 4, 0, 1, 1621239214, 1, 1653200025, NULL);
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -138,7 +128,7 @@ CREATE TABLE `sys_role_menu`  (
   `menu_id` int(11) NOT NULL COMMENT '菜单id',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 781 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '角色和菜单关联表' ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 797 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '角色和菜单关联表' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -150,14 +140,15 @@ INSERT INTO `sys_role_menu` VALUES (761, 28, 30, 1621694367);
 INSERT INTO `sys_role_menu` VALUES (762, 28, 32, 1621694367);
 INSERT INTO `sys_role_menu` VALUES (763, 28, 31, 1621694367);
 INSERT INTO `sys_role_menu` VALUES (764, 28, 27, 1621694367);
-INSERT INTO `sys_role_menu` VALUES (771, 4, 1, 1621695045);
-INSERT INTO `sys_role_menu` VALUES (772, 4, 28, 1621695045);
-INSERT INTO `sys_role_menu` VALUES (773, 4, 27, 1621695045);
-INSERT INTO `sys_role_menu` VALUES (774, 4, 29, 1621695045);
-INSERT INTO `sys_role_menu` VALUES (775, 4, 33, 1621695045);
-INSERT INTO `sys_role_menu` VALUES (778, 26, 28, 1621741427);
-INSERT INTO `sys_role_menu` VALUES (779, 26, 32, 1621741427);
-INSERT INTO `sys_role_menu` VALUES (780, 26, 30, 1621741427);
+INSERT INTO `sys_role_menu` VALUES (788, 4, 27, 1653200025);
+INSERT INTO `sys_role_menu` VALUES (789, 4, 33, 1653200025);
+INSERT INTO `sys_role_menu` VALUES (790, 4, 39, 1653200025);
+INSERT INTO `sys_role_menu` VALUES (791, 4, 38, 1653200025);
+INSERT INTO `sys_role_menu` VALUES (792, 4, 30, 1653200025);
+INSERT INTO `sys_role_menu` VALUES (793, 4, 32, 1653200025);
+INSERT INTO `sys_role_menu` VALUES (794, 4, 31, 1653200025);
+INSERT INTO `sys_role_menu` VALUES (795, 4, 1, 1653200025);
+INSERT INTO `sys_role_menu` VALUES (796, 4, 29, 1653200025);
 
 -- ----------------------------
 -- Table structure for sys_role_permission
@@ -171,7 +162,7 @@ CREATE TABLE `sys_role_permission`  (
   `rule` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'url请求路由',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 518 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '角色和权限关联表' ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 533 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '角色和权限关联表' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_role_permission
@@ -186,17 +177,14 @@ INSERT INTO `sys_role_permission` VALUES (497, 28, '管理员密码修改', 'Adm
 INSERT INTO `sys_role_permission` VALUES (498, 28, '管理员信息', 'Admin/info', 'admin/info', 1621694367);
 INSERT INTO `sys_role_permission` VALUES (499, 28, '管理员列表', 'Admin/list', 'admin/list', 1621694367);
 INSERT INTO `sys_role_permission` VALUES (500, 28, '角色创建', 'Role/create', 'role/create', 1621694367);
-INSERT INTO `sys_role_permission` VALUES (504, 4, '管理员创建', 'Admin/create', 'admin/create', 1621695045);
-INSERT INTO `sys_role_permission` VALUES (505, 4, '管理员编辑', 'Admin/edit', 'admin/edit', 1621695045);
-INSERT INTO `sys_role_permission` VALUES (506, 4, '角色创建', 'Role/create', 'role/create', 1621695045);
-INSERT INTO `sys_role_permission` VALUES (507, 4, '角色信息', 'Role/info', 'role/info', 1621695045);
-INSERT INTO `sys_role_permission` VALUES (508, 4, '角色删除', 'Role/delete', 'role/delete', 1621695045);
-INSERT INTO `sys_role_permission` VALUES (509, 4, '角色禁用', 'Role/disable', 'role/disable', 1621695045);
-INSERT INTO `sys_role_permission` VALUES (510, 4, '上传图片', 'Upload/image', 'upload/image', 1621695045);
-INSERT INTO `sys_role_permission` VALUES (511, 4, '上传文件', 'Upload/file', 'upload/file', 1621695045);
-INSERT INTO `sys_role_permission` VALUES (515, 26, '上传图片', 'Upload/image', 'upload/image', 1621741427);
-INSERT INTO `sys_role_permission` VALUES (516, 26, '管理员编辑', 'Admin/edit', 'admin/edit', 1621741427);
-INSERT INTO `sys_role_permission` VALUES (517, 26, '上传文件', 'Upload/file', 'upload/file', 1621741427);
+INSERT INTO `sys_role_permission` VALUES (525, 4, '管理员信息', 'Admin/info', 'admin/info', 1653200025);
+INSERT INTO `sys_role_permission` VALUES (526, 4, '管理员列表', 'Admin/list', 'admin/list', 1653200025);
+INSERT INTO `sys_role_permission` VALUES (527, 4, '角色信息', 'Role/info', 'role/info', 1653200025);
+INSERT INTO `sys_role_permission` VALUES (528, 4, '菜单列表', 'Menu/list', 'menu/list', 1653200025);
+INSERT INTO `sys_role_permission` VALUES (529, 4, '菜单信息', 'Menu/info', 'menu/info', 1653200025);
+INSERT INTO `sys_role_permission` VALUES (530, 4, '队列列表', 'Task/list', 'task/list', 1653200025);
+INSERT INTO `sys_role_permission` VALUES (531, 4, '短信列表', 'Sms/list', 'sms/list', 1653200025);
+INSERT INTO `sys_role_permission` VALUES (532, 4, '角色列表', 'Role/list', 'role/list', 1653200025);
 
 -- ----------------------------
 -- Table structure for sys_sms_log
@@ -216,7 +204,7 @@ CREATE TABLE `sys_sms_log`  (
   `update_time` int(11) NOT NULL COMMENT '更新时间',
   `retry_time` int(11) NULL DEFAULT NULL COMMENT '重发时间',
   PRIMARY KEY (`sms_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '短信发送日志表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '短信发送日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_sms_log
@@ -247,7 +235,7 @@ CREATE TABLE `sys_task`  (
   `update_time` int(11) NULL DEFAULT NULL COMMENT '最后一次执行时间',
   PRIMARY KEY (`task_id`) USING BTREE,
   UNIQUE INDEX `idx_unique_code`(`unique_code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2362 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '队列任务表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2362 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '队列任务表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_task
@@ -2259,7 +2247,7 @@ CREATE TABLE `user`  (
   `status` int(11) NOT NULL DEFAULT 1 COMMENT '帐号启用状态:0->禁用；1->启用',
   `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
   `gender` int(11) NOT NULL DEFAULT 0 COMMENT '性别：0->未知；1->男；2->女',
-  `birthday` datetime(0) NULL DEFAULT NULL COMMENT '生日',
+  `birthday` datetime NULL DEFAULT NULL COMMENT '生日',
   `source_type` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户来源',
   `integration` int(11) NULL DEFAULT 0 COMMENT '积分',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '注册时间',
