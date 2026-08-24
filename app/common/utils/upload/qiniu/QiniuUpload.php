@@ -56,8 +56,8 @@ class QiniuUpload extends UploadBase implements UploadInterface
                     throw new Exception($err);
                 } else {
                     //返回图片的完整URL
-                    $domain = str_replace("//", "////", $domain);
-                    $resFileData[$name] = str_replace("//", "/", $domain . '/' . $ret['key']);
+                    $domain = rtrim($domain, '/');
+                    $resFileData[$name] = $domain . '/' . $ret['key'];
                 }
             }
             return self::serviceSucc($resFileData, '上传成功');

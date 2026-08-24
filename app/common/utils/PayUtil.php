@@ -84,7 +84,7 @@ class PayUtil
      */
     public function refund(array $refundParams, array $optional = [])
     {
-        return $this->payObj->refund();
+        return $this->payObj->refund($refundParams, $optional);
     }
 
     /**
@@ -96,7 +96,7 @@ class PayUtil
      */
     public function transfer(array $transferParams)
     {
-        return $this->payObj->transfer();
+        return $this->payObj->transfer($transferParams);
     }
 
     /**
@@ -108,27 +108,6 @@ class PayUtil
      */
     public function transferToBank(array $transferParams)
     {
-        return $this->payObj->transferToBank();
+        return $this->payObj->transferToBank($transferParams);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

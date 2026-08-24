@@ -41,7 +41,7 @@ class AdminController extends AuthController
     public function list(): Json
     {
         $data     = $this->request->dataParams;
-        $pageData = $this->getPageData(@$data['page_no'], @$data['page_size']);
+        $pageData = $this->getPageData($data['page_no'] ?? 1, $data['page_size'] ?? 10);
         $where    = [];
         if (!empty($data['query_word'])) {
             $where[] = ['login_name', 'like', '%' . $data['query_word'] . '%'];
@@ -128,10 +128,3 @@ class AdminController extends AuthController
         return Result::disposeServiceRes($res);
     }
 }
-
-
-
-
-
-
-

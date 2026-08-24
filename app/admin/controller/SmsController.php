@@ -34,7 +34,7 @@ class SmsController extends AuthController
     public function list(): Json
     {
         $data     = $this->dataParams;
-        $pageData = $this->getPageData(@$data['page_no'], @$data['page_size']);
+        $pageData = $this->getPageData($data['page_no'] ?? 1, $data['page_size'] ?? 10);
         $where    = [];
         if (!empty($data['status'])) {
             $where[] = ['status', '=', $data['status']];

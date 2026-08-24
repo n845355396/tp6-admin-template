@@ -14,7 +14,14 @@ use Firebase\JWT\SignatureInvalidException;
 
 class JwtService extends BaseService
 {
-    private const KEY = "!@#$%*&cqkyi";
+    /**
+     * 获取JWT密钥，优先从环境变量读取，兜底使用默认值
+     * @return string
+     */
+    private static function getKey(): string
+    {
+        return env('jwt.key', '!@#$%*&cqkyi');
+    }
 
     /**
      * @param $data
@@ -23,23 +30,23 @@ class JwtService extends BaseService
      */
     public static function getToken($data): string
     {
-
+        $key = self::getKey();
         $token = [
-            "iss"  => self::KEY,
+            "iss"  => $key,
             "aud"  => '',          //面象的用户，可以为空
             "iat"  => time(),      //签发时间
             "nbf"  => time() + 3,    //在什么时候jwt开始生效  （这里表示生成3秒后才生效）
             "exp"  => time() + 604800,//token的有效期,一个星期（60*60*24*7）=604800
             "data" => $data
         ];
-        return JWT::encode($token, self::KEY, "HS256");
+        return JWT::encode($token, $key, "HS256");
     }
 
     public static function checkToken($token)
     {
         try {
             JWT::$leeway = 60;//当前时间减去60，把时间留点余地
-            $decoded     = JWT::decode($token, self::KEY, array('HS256')); //HS256方式，这里要和签发的时候对应
+            $decoded     = JWT::decode($token, self::getKey(), array('HS256')); //HS256方式，这里要和签发的时候对应
             $arr         = (array)$decoded;
             return Result::serviceSucc($arr);
 

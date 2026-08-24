@@ -60,7 +60,7 @@ class RoleController extends AuthController
     public function list(): Json
     {
         $data     = $this->request->dataParams;
-        $pageData = $this->getPageData(@$data['page_no'], @$data['page_size']);
+        $pageData = $this->getPageData($data['page_no'] ?? 1, $data['page_size'] ?? 10);
         $where    = [];
         if (!empty($data['query_word'])) {
             $where[] = ['role_name', 'like', "%{$data['query_word']}%"];
@@ -102,27 +102,3 @@ class RoleController extends AuthController
         return Result::disposeServiceRes($res);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

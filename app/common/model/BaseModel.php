@@ -61,7 +61,8 @@ class BaseModel extends Model
 
         foreach ($data as $field => $value) {
             $aliasField = $alias ? "$alias.$field" : $field;
-            switch (@$fieldArr[$field]) {
+            $operator = $fieldArr[$field] ?? null;
+            switch ($operator) {
                 //in
                 case 'in':
                     //不等于

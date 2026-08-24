@@ -45,13 +45,15 @@ class AdminMdl extends BaseModel implements ModelLogInterface
         if (empty($data['admin_id'])) {
             return [];
         }
-        $info = (new RoleMdl())->field('r.*')->alias('r')
-            ->leftJoin('sys_admin_role ar', 'ar.role_id = r.role_id')
-            ->where(['ar.admin_id' => $data['admin_id']])->find();
-        if (is_null($info)) {
-            return [];
+        static $roleCache = [];
+        $adminId = $data['admin_id'];
+        if (!isset($roleCache[$adminId])) {
+            $info = (new RoleMdl())->field('r.*')->alias('r')
+                ->leftJoin('sys_admin_role ar', 'ar.role_id = r.role_id')
+                ->where(['ar.admin_id' => $adminId])->find();
+            $roleCache[$adminId] = is_null($info) ? [] : $info->toArray();
         }
-        return $info->toArray();
+        return $roleCache[$adminId];
     }
 
     /**
@@ -134,7 +136,7 @@ class AdminMdl extends BaseModel implements ModelLogInterface
      */
     public function saveAdminUser(&$data): array
     {
-        $oldVo = $this->getFieldChangeData(@$data['admin_id']);
+        $oldVo = $this->getFieldChangeData($data['admin_id'] ?? null);
         // 启动事务
         Db::startTrans();
         try {

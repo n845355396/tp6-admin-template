@@ -39,31 +39,7 @@ class PayLog
         }
         $path    = str_replace('//', '/', $path . '/' . date('Y_m_d', time()) . '.log');
         $content = '【' . date('Y-m-d H:i:s', time()) . '】'
-            . "\r\n" . $title . "\r\n" . var_export($data, true) . "\r\n\r\n";
+            . "\r\n" . $title . "\r\n" . json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . "\r\n\r\n";
         file_put_contents($path, $content, FILE_APPEND);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

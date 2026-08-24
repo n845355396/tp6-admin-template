@@ -16,7 +16,6 @@ class AdminExceptionHandle extends Handle
     public function report(Throwable $exception): void
     {
         if (!$this->isIgnoreReport($exception)) {
-            // 收集异常数据
             $data = [
                 'file'    => $exception->getFile(),
                 'line'    => $exception->getLine(),
@@ -45,11 +44,22 @@ class AdminExceptionHandle extends Handle
         } else {
             $httpCode = $this->httpCode;
         }
-        $data = [
-            'code'       => $httpCode,
-            'msg'        => $e->getMessage(),
-            'error_file' => $e->getFile() . '：' . $e->getLine() . '行',
-        ];
+
+        $isDebug = $this->app->config->get('app.app_debug', false);
+
+        if ($isDebug) {
+            $data = [
+                'code'       => $httpCode,
+                'msg'        => $e->getMessage(),
+                'error_file' => $e->getFile() . '：' . $e->getLine() . '行',
+            ];
+        } else {
+            $data = [
+                'code' => $httpCode,
+                'msg'  => $httpCode == 404 ? '页面不存在' : '服务器内部错误',
+            ];
+        }
+
         return json($data);
     }
 

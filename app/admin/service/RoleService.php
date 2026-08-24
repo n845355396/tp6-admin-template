@@ -113,7 +113,7 @@ class RoleService extends BaseService
         $resList   = [];
         $routeList = Route::getRuleList();
         foreach ($routeList as $route) {
-            $isPermission = @$route['option']['append']['is_permission'];
+            $isPermission = $route['option']['append']['is_permission'] ?? null;
             if ($isPermission != null && $isPermission === true) {
 
                 $childData = [

@@ -46,11 +46,22 @@ class PortalExceptionHandle extends Handle
         } else {
             $httpCode = $this->httpCode;
         }
-        $data = [
-            'code'       => $httpCode,
-            'msg'        => $e->getMessage(),
-            'error_file' => $e->getFile() . '：' . $e->getLine() . '行',
-        ];
+
+        $isDebug = $this->app->config->get('app.app_debug', false);
+
+        if ($isDebug) {
+            $data = [
+                'code'       => $httpCode,
+                'msg'        => $e->getMessage(),
+                'error_file' => $e->getFile() . '：' . $e->getLine() . '行',
+            ];
+        } else {
+            $data = [
+                'code' => $httpCode,
+                'msg'  => $httpCode == 404 ? '页面不存在' : '服务器内部错误',
+            ];
+        }
+
         return json($data);
     }
 
