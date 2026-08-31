@@ -66,7 +66,7 @@ class AdminMdl extends BaseModel implements ModelLogInterface
      */
     public function upPassword($adminId, $password): array
     {
-        $hashPassword = UserPassword::encrypt($password);;
+        $hashPassword = UserPassword::encrypt($password);
         $res = $this->where(['admin_id' => $adminId])->update(['password' => $hashPassword]);
         return $res ? Result::serviceSucc() : Result::serviceError();
     }

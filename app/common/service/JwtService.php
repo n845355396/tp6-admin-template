@@ -10,6 +10,7 @@ use Firebase\JWT\BeforeValidException;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\SignatureInvalidException;
+use think\facade\Log;
 
 
 class JwtService extends BaseService
@@ -51,12 +52,16 @@ class JwtService extends BaseService
             return Result::serviceSucc($arr);
 
         } catch (SignatureInvalidException $e) {
+            Log::error('JWT签名不正确: ' . $e->getMessage());
             return Result::serviceError('签名不正确');
         } catch (BeforeValidException $beforeValidException) {
+            Log::error('JWT尚未生效: ' . $beforeValidException->getMessage());
             return Result::serviceError('token失效');
         } catch (ExpiredException $expiredException) {
+            Log::error('JWT已过期: ' . $expiredException->getMessage());
             return Result::serviceError('token过期');
         } catch (Exception $exception) {
+            Log::error('JWT校验异常: ' . $exception->getMessage());
             return Result::serviceError('未知错误');
         }
 
